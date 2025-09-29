@@ -45,6 +45,7 @@ public class University{
 }
 #Task-02
 Design the “Student” class so that the main method prints the following:
+
 public class StudentTester2{
    public static void main(String [] args){
       Student s1 = new Student();
@@ -64,6 +65,7 @@ public class Student{
 
 #Task-03
 Design the Course class to generate the correct output from the driver code provided 
+
 public class Tester3{
   public static void main(String[] args) {
     Course c1 = new Course();
@@ -99,6 +101,7 @@ public class Course{
 
 #Tasks-04
 Design the CellPhone class so that the main method of tester class can produce the following output:
+
 public class Tester4{
   public static void main(String[]args){
      CellPhone phone1 = new CellPhone();
@@ -119,7 +122,6 @@ public class Tester4{
      phone1.printDetails();  
   }
 }
-
 public class CellPhone{
   public String model="unknown";
   public String [] arr1= new String [3];
@@ -154,6 +156,7 @@ public class CellPhone{
 
 #Task-05
 Consider the following class:
+
 public class Human{
     public int age;
     public double height;
@@ -183,6 +186,7 @@ public static void main(string {} args){
 }
 #Task-06
 Design the CSECourse class to generate the correct output from the driver code provided below:
+
 public class CourseTester{
   public static void main(String args []){
     CSECourse c1 = new CSECourse();
@@ -199,6 +203,7 @@ public class CSECourse{
 
 #Task-07
 Design the “ImaginaryNumber”  class to generate the output given below:
+
 public class Tester7{
   public static void main(String [] args){
      ImaginaryNumber num1 = new ImaginaryNumber();
