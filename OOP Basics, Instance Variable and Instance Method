@@ -1,4 +1,5 @@
 # Object-Oriented-Programming-OOP-Codes-
+
 #Task-01
 we are given the following “University” class: 
 
@@ -229,4 +230,122 @@ public class ImaginaryNumber{
   }
 }
 
-Now check if the instance variables of both objects have changed or not and whether the instance variables of both objects are of the same value or not.
+#Task-08
+Implement the “Assignment” class with necessary properties, so that the given output is produced for the provided driver code.
+
+public class AssignmentTester{
+  public static void main(String [] args){
+    Assignment as1 = new Assignment();
+    as1.printDetails();
+    System.out.println("1---------------");
+    as1.tasks = 11;
+    as1.difficulty = "Moderate";
+    as1.submission = true;
+    as1.printDetails();
+    System.out.println("2---------------");
+    System.out.println(as1.makeOptional());
+    System.out.println("3---------------");
+    as1.printDetails();
+    System.out.println("4---------------");
+    Assignment as2 = new Assignment();
+    as2.tasks = 12;
+    as2.difficulty = "Hard";
+    as2.submission = false;
+    as2.printDetails();
+    System.out.println("5---------------");
+    System.out.println(as2.makeOptional());
+  }
+}
+
+public class Assignment{
+  public int tasks;
+  public String difficulty;
+  public boolean submission;
+  
+  public void printDetails(){
+    System.out.println("Number of tasks: "+tasks);
+    System.out.println("Difficulty level: "+difficulty);
+    System.out.println("Submission required: "+submission);
+  }
+  
+  public String makeOptional(){
+    if(submission==true){
+    submission=false;
+    return "Assignment will not require submission";
+  }
+    else if(submission==false){
+     return "Submission is already not required" ;
+    }
+    return "";
+  }
+}
+
+#Task-09
+Create an Employee class to provide the expected output. 
+●An employee will have a name, salary and designation.
+●The name will be assigned inside the newEmployee() method
+●Whenever a New Employee joins his/her salary will be Tk. 30,000 and the designation will be junior.
+●Employees with salaries greater than Tk. 50,000 and Tk. 30,000 need to pay 30% and 10% of salary as tax respectively.
+●Employees can be promoted to senior, lead and manager positions. Based on their promotion they will get an increment of Tk. 25,000, Tk. 50,000 and Tk. 75,000 respectively.
+
+public class Tester10{
+  public static void main(String[] args){
+
+    Employee emp1 = new Employee();
+    Employee emp2 = new Employee();
+    Employee emp3 = new Employee();
+      
+    emp1.newEmployee("Harry Potter");
+    emp2.newEmployee("Hermione Granger");
+    emp3.newEmployee("Ron Weasley");
+    System.out.println("1 ==========");
+    emp1.displayInfo();
+    System.out.println("2 ==========");
+    emp2.displayInfo();
+    System.out.println("3 ==========");
+    emp3.displayInfo();
+    System.out.println("4 ==========");
+    emp1.calculateTax();
+    System.out.println("5 ==========");
+    emp1.promoteEmployee("lead");
+    System.out.println("6 ==========");
+    emp1.calculateTax();
+    System.out.println("7 ==========");
+    emp1.displayInfo();
+    System.out.println("8 ==========");
+    emp3.promoteEmployee("manager");
+    System.out.println("9 ==========");
+    emp3.calculateTax();
+    System.out.println("10 ==========");
+    emp3.displayInfo();
+  }
+}
+
+public class Employee{
+  private String name;
+  private int id;
+  private String type;
+  
+  public Employee(){
+    System.out.println("A default employee has been created");
+  }
+  public Employee(String a, int b, String c){
+    name=a;
+    id=b;
+    type=c;
+  }
+  
+  public String getType(){
+    return type;
+  }
+  public String getName(){
+    return name;
+  }
+  public int getID(){
+    return id;
+  }
+}
+
+  
+  
+  
