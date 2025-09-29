@@ -229,15 +229,4 @@ public class ImaginaryNumber{
   }
 }
 
-
-    
-    
-  
-
-                         
-    
-
-
-
-
 Now check if the instance variables of both objects have changed or not and whether the instance variables of both objects are of the same value or not.
