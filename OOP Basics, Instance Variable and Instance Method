@@ -288,7 +288,7 @@ Create an Employee class to provide the expected output.
 ●Employees with salaries greater than Tk. 50,000 and Tk. 30,000 need to pay 30% and 10% of salary as tax respectively.
 ●Employees can be promoted to senior, lead and manager positions. Based on their promotion they will get an increment of Tk. 25,000, Tk. 50,000 and Tk. 75,000 respectively.
 
-public class Tester10{
+public class Tester09{
   public static void main(String[] args){
 
     Employee emp1 = new Employee();
@@ -344,6 +344,55 @@ public class Employee{
   public int getID(){
     return id;
   }
+}
+
+#Task-10
+Complete the Bird class so that main method runs properly:
+public class Test10{
+    public static void main(String args[]) { 
+        Bird b1 = new Bird();
+        b1.name = "Parrot";
+        b1.flyUp(3);
+        b1.makeNoise();
+        b1.flyDown(5);
+        b1.flyDown(2);
+        b1.flyDown(1);
+        Bird b2 = new Bird();
+        b2.name = "Eagle"; 
+        b2.flyUp(5);
+        b2.flyDown(5);
+        b2.makeNoise(); 
+    }  
+}
+public class Bird {
+    String name;
+    int height = 0; // current flying height in feet
+
+    void flyUp(int feet) {
+        height += feet;
+        System.out.println(name + " has flown up " + feet + " feet.");
+    }
+
+    void flyDown(int feet) {
+        if (feet > height) {
+            System.out.println(name + " cannot fly down " + feet + " feet.");
+        } else {
+            height -= feet;
+            if (height == 0) {
+                System.out.println(name + " has flown down " + feet + " feet and landed.");
+            } else {
+                System.out.println(name + " has flown down " + feet + " feet.");
+            }
+        }
+    }
+
+    void makeNoise() {
+        if (name.equals("Parrot")) {
+            System.out.println("Squawk");
+        } else if (name.equals("Eagle")) {
+            System.out.println("Squee");
+        }
+    }
 }
 
   
