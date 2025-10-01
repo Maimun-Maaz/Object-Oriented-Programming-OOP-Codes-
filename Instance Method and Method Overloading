@@ -1,1 +1,211 @@
 Instance Method and Method Overloading :
+
+#Task-01
+Design the Shape class with necessary properties to produce the output for the provided driver code.
+public class ShapeTester{
+  public static void main(String args []){
+    Shape circle = new Shape();
+    Shape triangle = new Shape();
+    Shape rectangle = new Shape();
+    
+    circle.setParameters("Circle", 5);
+    triangle.setParameters("Triangle", 4, 7);
+    rectangle.setParameters("Rectangle", 2.4, 4.4);
+    
+    System.out.println(circle.details());
+    System.out.println("1---------------");
+    System.out.println(triangle.details());
+    System.out.println("2---------------");
+    System.out.println(rectangle.details());  
+  }
+}
+
+public class Shape{
+  public String name;
+  public double area;
+  
+  public void setParameters(String a,int b){
+    name=a;
+    area=3.1416*b*b;
+  }
+  
+  public void setParameters(String a,int b, int c){
+    name=a;
+    area=b*c*0.5;
+  }
+  
+  public void setParameters(String a,double b,double c){
+    name=a;
+    area=b*c;
+  }
+  
+  public double details(){
+    System.out.println("Shape Name: "+name);
+    return area;
+  }
+}
+
+#Task-02
+Design the Student class with the necessary properties to produce the given output for the provided driver code. 
+Hint: 
+-A student having cgpa>=3.5 and credit>10 is eligible for scholarship. 
+-A student with cgpa>=3.5 but <3.7 is eligible for Need-based scholarship.
+-A student having cgpa >=3.7 is eligible for Merit based scholarship
+
+public class StudentTester{
+  public static void main(String[] args) {
+    Student std1 = new Student();
+    std1.showDetails();
+    System.out.println("1---------------");
+    std1.updateDetails("Alif", 3.99, 12);
+    System.out.println("2---------------");
+    std1.checkScholarshipEligibility();
+    System.out.println("3---------------");
+    std1.showDetails();
+    Student std2 = new Student();
+    std2.updateDetails("Mim", 3.4);
+
+    Student std3 = new Student();
+    std3.updateDetails("Henry", 3.5, 15, "BBA");
+    System.out.println("5---------------");
+    std2.checkScholarshipEligibility();
+    System.out.println("6---------------");
+    std3.checkScholarshipEligibility();
+    System.out.println("7---------------");
+    std2.showDetails();
+    System.out.println("8---------------");
+    std3.showDetails();
+  }
+}
+
+public class Student {
+    String name;
+    String department;
+    double cgpa;
+    int credits;
+    String scholarshipStatus;
+
+    // Default constructor
+    public Student() {
+        this.name = "Not Set";
+        this.department = "CSE";
+        this.cgpa = 0.0;
+        this.credits = 9;
+        this.scholarshipStatus = "Not Set";
+    }
+
+    // updateDetails with name, cgpa, credits
+    public void updateDetails(String name, double cgpa, int credits) {
+        this.name = name;
+        this.cgpa = cgpa;
+        this.credits = credits;
+    }
+
+    // updateDetails with name, cgpa only
+    public void updateDetails(String name, double cgpa) {
+        this.name = name;
+        this.cgpa = cgpa;
+        this.credits = 9; // default credits
+        this.department = "CSE"; // default department
+    }
+
+    // updateDetails with name, cgpa, credits, department
+    public void updateDetails(String name, double cgpa, int credits, String department) {
+        this.name = name;
+        this.cgpa = cgpa;
+        this.credits = credits;
+        this.department = department;
+    }
+
+    // Method to check scholarship eligibility
+    public void checkScholarshipEligibility() {
+        if (cgpa >= 3.7 && credits > 10) {
+            scholarshipStatus = "Merit based scholarship";
+            System.out.println(name + " is eligible for Merit based scholarship");
+        } else if (cgpa >= 3.5 && cgpa < 3.7 && credits > 10) {
+            scholarshipStatus = "Need based scholarship";
+            System.out.println(name + " is eligible for Need based scholarship");
+        } else {
+            scholarshipStatus = "No scholarship";
+            System.out.println(name + " is not eligible for scholarship");
+        }
+    }
+
+    // Method to show student details
+    public void showDetails() {
+        System.out.println("Name: " + name);
+        System.out.println("Department: " + department);
+        System.out.println("CGPA: " + cgpa);
+        System.out.println("Credits: " + credits);
+        System.out.println("Scholarship Status: " + scholarshipStatus);
+    }
+}
+
+#Task-03
+Design the Library class with the necessary properties so that output is produced for the provided driver code.
+public class Tester3{
+  public static void main(String[] args) {
+    Library a1 = new Library();
+    a1.setBookCapacity(3);
+    System.out.println("1-------------");
+    a1.addBook("Ice");
+    System.out.println("2-------------");
+    a1.printDetail();
+    System.out.println("3-------------");
+    a1.addBook("Emma");
+    a1.addBook("Wings");
+    a1.addBook("Next");
+    System.out.println("4-------------");
+    a1.printDetail();
+    Library a2 = new Library();
+    a2.setBookCapacity(4);
+    System.out.println("5-------------");
+    a2.addBook("Onnobhubon");
+    a2.addBook("Ami");
+    System.out.println("6-------------");
+    a2.printDetail();
+    System.out.println("7-------------");
+    a2.addBook("Deyal");
+    a2.addBook("Himu");
+    a2.addBook("Megher Upor Bari");
+    System.out.println("8-------------");
+    a2.printDetail();
+  }
+}
+
+public class Library{
+  public String [] arr;
+  public int capacity;
+  public int number;
+  
+  public void setBookCapacity(int a){
+    capacity=a;
+    arr=new String [a];
+  }
+  
+  public void addBook(String a){
+    if(capacity > number){
+      arr[number]=a;
+      number++;
+      System.out.println("Book "+"'"+a+"'"+" added to the library");
+    }
+    else if(capacity <= number){
+      System.out.println("Maximum capacity exceeds. You can't add more than "+capacity+" books");
+    }
+  }
+  
+  public void printDetail(){
+    System.out.println("Maximum Capacity: "+capacity);
+    System.out.println("Total Books: "+ number);
+    for(int i=0;i<number;i++){
+      System.out.println(arr[i]);
+    }
+  }
+}
+
+#Task-
+
+
+
+
+
