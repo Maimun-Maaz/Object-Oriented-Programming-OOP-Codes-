@@ -524,7 +524,7 @@ You are building a tracker system that will keep track of a person’s income an
 ●If the total balance becomes 0 after the expense() method is called it prints “You’re broke!” . Again if the available balance is less than the expense it prints “Not enough balance.”. Otherwise the method prints “Balance updated” after updating the balance.
 ●The last expense and income history can be seen by using the history() method.
 
-public class Tester4{
+public class Tester8{
    public static void main(String[] args) {
        MoneyTracker tr1 = new MoneyTracker();
        System.out.println(tr1.info());
