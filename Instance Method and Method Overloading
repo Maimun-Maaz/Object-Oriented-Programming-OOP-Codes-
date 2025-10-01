@@ -203,9 +203,405 @@ public class Library{
   }
 }
 
-#Task-
+#Task-4
+Design the TaxiLagbe class with necessary properties to produce the output for the provided driver code.
+public class TaxiTester{
+ public static void main(String[] args) {
+   TaxiLagbe taxi1 = new TaxiLagbe();
+   taxi1.storeInfo("1010-01", "Dhaka");
+   System.out.println("1-------------");
+   taxi1.printDetails();
+   System.out.println("2-------------");
+   taxi1.addPassenger("Wilson", 105);
+   System.out.println("3-------------");
+   taxi1.printDetails();
+   System.out.println("4-------------");
+   taxi1.addPassenger("Walker", 100, "Wood", 200);
+   System.out.println("5-------------");
+   taxi1.printDetails();
+   System.out.println("6-------------");
+   taxi1.addPassenger("Karen", 200);
+   taxi1.addPassenger("Donald", 130);
+   System.out.println("7-------------");
+   taxi1.printDetails();
+   System.out.println("8-------------");
+   TaxiLagbe taxi2 = new TaxiLagbe();
+   taxi2.storeInfo("1010-02", "Khulna");
+   taxi2.addPassenger("Don", 115, "Parker", 215);
+   System.out.println("9-------------");
+   taxi2.printDetails();
+ }
+}
 
+public class TaxiLagbe{
+  public String number;
+  public String area;
+  public String [] arr= new String [4];
+  public int passenger;
+  public int fare;
+  
+  public void storeInfo(String a,String b){
+    number=a;
+    area=b;
+  }
+  
+  public void printDetails(){
+    System.out.println("Taxi number: "+ number);
+    System.out.println("This taxi can cover "+area+" area");
+    System.out.println("Total Passenger: "+passenger);
+    System.out.println("Passenger Lists:");
+    for(int i=0;i<passenger;i++){
+      System.out.println(arr[i]+" ");
+    }
+    System.out.println("Total collected fare: "+fare+" Taka");
+  }
+  
+  public void addPassenger(String a,int b){
+    if(passenger < 4){
+      arr[passenger]=a;
+      passenger++;
+      fare=fare+b;
+      System.out.println("Dear "+a+" ! "+"Welcome to TaxiLagbe");
+    }
+    else {
+      System.out.println("Taxi Full! No more passengers can be added");
+    }
+  }
+  
+  public void addPassenger(String a, int b, String c, int d){
+    if(passenger < 4){
+      arr[passenger]=a;
+      passenger++;
+      fare=fare+b;
+      System.out.println("Dear "+a+" ! "+"Welcome to TaxiLagbe");
+    }
+    else {
+      System.out.println("Taxi Full! No more passengers can be added");
+    }
+    
+    if(passenger < 4){
+      arr[passenger]=c;
+      passenger++;
+      fare=fare+d;
+      System.out.println("Dear "+c+" ! "+"Welcome to TaxiLagbe");
+    }
+    else {
+      System.out.println("Taxi Full! No more passengers can be added");
+    }
+  } 
+}
 
+#Task-5
+Design the “Shelf” class with necessary properties, so that the output is produced for the provided driver code.
+public class ShelfTester{
+  public static void main(String [] args){
+    Shelf shelf = new Shelf();
+    shelf.showDetails();
+    System.out.println("1---------------");
+    shelf.addBooks(3);
+    System.out.println("2---------------");
+    shelf.capacity = 7;
+    shelf.addBooks(3);
+    System.out.println("3---------------");
+    shelf.showDetails();
+    System.out.println("4---------------");
+    shelf.addBooks(5);
+    shelf.showDetails();
+    shelf.capacity += 4;
+    System.out.println("6---------------");
+    shelf.addBooks(5);
+    shelf.showDetails();
+  }
+}
 
+public class Shelf{
+  public int capacity;
+  public int number;
+  
+  public void showDetails(){
+      System.out.println("Shelf capacity: "+capacity);
+      System.out.println("Number of books: "+number);
+    }
+  
+  public void addBooks(int a){
+    if(capacity==0){
+      System.out.println("Zero capacity. Cannot add books.");
+    }
+    else if(number+a >capacity){
+      System.out.println("Exceeds capacity");
+    }
+    else if(number + a < capacity){
+      number=number+a;
+      System.out.println(a+" books added to shelf");
+    }
+  }
+}
 
+#Task-6
+Complete the following Cart class to generate the given output from the tester code:
+●A cart will have a cart number which will be assigned in create_cart() method.
+●Each cart can hold up to 3 items (at max).
+●Each cart must have two arrays to store items and their respective prices.
+●The items inside a cart will be added in addItem() method only if the cart items do not exceed 3.
+The giveDiscount() method saves the discount given to that cart object and updates the price accordingly.
+
+public class CartTester{
+  public static void main(String [] args){
+    Cart c1 = new Cart (); 
+    Cart c2 = new Cart ();
+    Cart c3 = new Cart ();
+    
+    c1.create_cart(1);
+    c2.create_cart(2);
+    c3.create_cart(3);
+    System.out.println("====1====");
+    c1.addItem("Table", 3900.5);
+    c1.addItem("Chair", 1400.76);
+    c1.addItem(5400.87, "Television");
+    c1.addItem(5000.0, "Refrigerator");
+    
+    System.out.println("====2====");
+    c2.addItem("Stove",439.90);
+    
+    System.out.println("====3====");
+    c3.addItem("Chair",1400.5);
+    c3.addItem(3400.0, "Chair");
+    
+    System.out.println("====4====");
+    c1.cartDetails();
+    
+    System.out.println("====5====");
+    c2.cartDetails();
+    
+    System.out.println("====6====");
+    c3.cartDetails();
+    c1.giveDiscount(10);
+    
+    System.out.println("====7====");
+    c1.cartDetails();
+  }
+}
+
+public class Cart {
+    public int cart_number;
+    public double [] price=new double [3];
+    public String [] obj=new String [3];
+    public int count;
+    public double discount;
+    public double sum;
+    
+    public void create_cart(int a){
+      cart_number=a;
+    }
+    
+    public void addItem(String a, double b){
+      if(count < 3){
+        obj[count]=a;
+        price[count]=b;
+        count++;
+        sum=sum+b;
+        System.out.println(a+" added to cart "+cart_number);
+        System.out.println("You have "+count+" item(s) in your cart now.");
+      }
+      else{
+        System.out.println("You already have 3 items on your cart.");
+      }
+    }
+    
+      
+    public void cartDetails(){
+      System.out.println("Your cart (c"+cart_number+")");
+      for(int i=0;i<3;i++){
+        System.out.println(obj[i]+" - "+price[i]);
+      }
+      if(discount==0.00){
+        System.out.println("Total price: "+sum);
+      }
+      else{
+        sum=sum-(discount*sum/100);
+        System.out.println("Total price: "+sum);
+      }
+    }
+    
+    public void giveDiscount(int a){
+      discount=a;
+    }
+    
+    public void addItem(double b, String a ){
+      if(count < 3){
+        obj[count]=a;
+        price[count]=b;
+        count++;
+        sum=sum+b;
+        System.out.println(a+" added to cart "+cart_number);
+        System.out.println("You have "+count+" item(s) in your cart now.");
+      }
+      else{
+        System.out.println("You already have 3 items on your cart.");
+      }
+    }
+  }
+
+#Task-7
+Design the Reader class in such a way so that the following code provides the expected output.
+●A reader will have a name, capacity to read and an array of books they are reading.
+●The initial capacity of a reader will be 0. The initial name will be “New user”.
+
+public class Reader_tester {
+  public static void main(String[] args){
+    Reader r1 = new Reader();
+    Reader r2 = new Reader();
+    
+    System.out.println("1 ==========");
+    System.out.println(r1.createReader("Messi", 2));
+    System.out.println(r2.createReader("Ronaldo", 3));
+    
+    System.out.println("2 ==========");
+    r1.readerInfo();
+    
+    System.out.println("3 ==========");
+    r2.addBook("Java");
+    r2.addBook("Python");
+    r2.addBook("C++");
+    r2.readerInfo();
+    
+    System.out.println("4 ==========");
+    r1.addBook("C#");
+    r1.addBook("Rust");
+    r1.addBook("GoLang");
+    
+    System.out.println("5 ==========");
+    r2.addBook("Python");
+    
+    System.out.println("6 ==========");
+    r1.readerInfo();
+  }
+}
+
+public class Reader {
+  public String name = "new user";
+  public int capacity=0;
+  public String [] arr;
+  public int count;
+  public int p=0;
+  
+  public String createReader(String a, int b){
+    name=a;
+    capacity = b;
+    arr= new String [b];
+    return "A new reader is created !";
+  }
+  
+  public void readerInfo(){
+    System.out.println("Name: "+name);
+    System.out.println("Capacity: "+capacity);
+    System.out.println("Book:");
+    if(p==0){
+      System.out.println("No books added yet");
+    }
+    else if (count <= capacity){
+      for(int i=0; i<count; i++){
+        System.out.println("Books "+(i+1)+": "+ arr[i]);
+      }
+    }
+  }
+  public void addBook(String a){
+    if(count < capacity){
+      p++;
+      arr[count]=a;
+      count++;
+    }
+    else if(count >= capacity){
+      System.out.println("No more capacity");
+    }
+  }
+}
+
+#Task-8
+You are building a tracker system that will keep track of a person’s income and expenses. 
+●When the createTracker() method is invoked it sets the balance to 1.0 taka.
+●The info() method returns a String with the trackers information.
+●If the total balance becomes 0 after the expense() method is called it prints “You’re broke!” . Again if the available balance is less than the expense it prints “Not enough balance.”. Otherwise the method prints “Balance updated” after updating the balance.
+●The last expense and income history can be seen by using the history() method.
+
+public class Tester4{
+   public static void main(String[] args) {
+       MoneyTracker tr1 = new MoneyTracker();
+       System.out.println(tr1.info());
+       tr1.createTracker("John");
+       System.out.println("1 ==========");
+       System.out.println(tr1.info());
+       System.out.println("2 ==========");
+       tr1.income(1000);
+       System.out.println(tr1.info());
+       System.out.println("3 ==========");
+       tr1.expense(800);
+       tr1.expense(100);
+       System.out.println(tr1.info());
+       System.out.println("4 ==========");
+       tr1.showHistory();
+       System.out.println("5 ==========");
+       tr1.expense(101);
+       System.out.println("6 ==========");
+       tr1.expense(200);
+       System.out.println("7 ==========");
+       tr1.income(200);
+       tr1.showHistory();
+       System.out.println("8 ==========");
+   }
+}
+
+public class MoneyTracker {
+    private String name;
+    private double balance;
+    private double lastIncome;
+    private double lastExpense;
+
+    // Constructor
+    public MoneyTracker() {
+        this.name = null;
+        this.balance = 0.0;
+        this.lastIncome = 0.0;
+        this.lastExpense = 0.0;
+    }
+
+    // Method to create tracker
+    public void createTracker(String name) {
+        this.name = name;
+        this.balance = 1.0;   // balance set to 1 taka
+    }
+
+    // Method to add income
+    public void income(double amount) {
+        this.balance += amount;
+        this.lastIncome = amount;
+        System.out.println("Balance Updated!");
+    }
+
+    // Method to spend money
+    public void expense(double amount) {
+        if (amount > this.balance) {
+            System.out.println("Not enough balance.");
+        } else {
+            this.balance -= amount;
+            this.lastExpense = amount;
+            if (this.balance == 0.0) {
+                System.out.println("You're broke!");
+            } else {
+                System.out.println("Balance Updated.");
+            }
+        }
+    }
+
+    // Show tracker info
+    public String info() {
+        return "Name: " + this.name + "\nCurrent Balance: " + this.balance;
+    }
+
+    // Show last income & expense history
+    public void showHistory() {
+        System.out.println("Last added: " + this.lastIncome);
+        System.out.println("Last spent: " + this.lastExpense);
+    }
+}
 
