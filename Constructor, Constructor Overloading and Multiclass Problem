@@ -1,1 +1,376 @@
+Constructor, Constructor Overloading and Multiclass Problem 
+
+#Task-1
+Design the Student class in such a way that it produces the following output.
+public class StudentTester{
+   public static void main(String[] args){
+       Student s1 = new Student("Harry", "CSE");
+       System.out.println(s1.name);
+       s1.updateName("Harry Potter");
+       System.out.println(s1.name);
+       System.out.println(s1.prog);
+       s1.updateProgram("CS");
+       String prog = s1.accessProgram();
+       System.out.println(prog);
+   }
+}
+public class Student {
+    String name;
+    String prog;
+
+    // Constructor
+    public Student(String n, String p) {
+        name = n;
+        prog = p;
+    }
+
+    // Method to update name
+    public void updateName(String newName) {
+        name = newName;
+    }
+
+    // Method to update program
+    public void updateProgram(String newProg) {
+        prog = newProg;
+    }
+
+    // Method to access program
+    public String accessProgram() {
+        return prog;
+    }
+}
+#Task-02
+Design the Toy class in such a way that it produces the following output
+public class ToyTester{
+    public static void main(String[] args){
+        Toy t1 = new Toy("Car", 230);
+        System.out.println("1=================");
+        t1.updatePrice(250);
+        System.out.println("2=================");
+        System.out.println(t1.name);
+        t1.showPrice();
+        System.out.println("3=================");
+        Toy t2 = new Toy("Robot", 450);
+        System.out.println("4=================");
+        t2.updateName("Autobot");
+        System.out.println("5=================");
+        System.out.println(t2.name);
+        t2.showPrice();
+    }
+}
+public class Toy{
+  public String name;
+  public int price;
+  
+  public Toy(String a,int b){
+    System.out.println("A new toy has been made!");
+    name=a;
+    price=b;
+  }
+  
+  public void updatePrice(int a){
+    price=a;
+  }
+  
+  public void showPrice(){
+    System.out.println("Price:"+ price+" "+"Taka");
+  }
+  
+  public void updateName(String a){
+    System.out.println("Changing old name:"+ name);
+    name=a;
+    System.out.println("new name:"+ name);
+  }
+}
+
+#Task-03
+Design the Shape2D class in such a way that it produces the following output.
+public class Shape2DTester {
+  public static void main(String[] args) {
+    Shape2D sq = new Shape2D();
+    System.out.println("---------1----------");
+    sq.area();
+    System.out.println("---------2----------");
+    Shape2D rectangle = new Shape2D(5,6);
+    System.out.println("---------3----------");
+    rectangle.area();
+    System.out.println("---------4----------");
+    Shape2D tri1 = new Shape2D(5,6,"Triangle");
+    System.out.println("---------5----------");
+    tri1.area();
+    System.out.println("---------6----------");
+    Shape2D tri2 = new Shape2D(5,6,7);
+    System.out.println("---------7----------");
+    tri2.area();
+    System.out.println("---------8----------");
+  }
+}
+public class Shape2D{
+  public String name="Square";
+  public int length=5;
+  public double area;
+  
+  public void area(){
+    System.out.println("The area of the"+" "+name+":"+" "+ area);
+  }
+  
+  public Shape2D(){
+    area=4*length;
+    System.out.println("A Square has been created with length: 5");
+  }
+  
+  public Shape2D(int a,int b){
+    name="Rectangle";
+    area=a*b;
+    System.out.println("A Rectangle has been created with length:"+ a + "and breadth:"+ b);
+  }
+  
+   public Shape2D(int a,int b, String c){
+    name=c;
+    area=a*b*0.5;
+    System.out.println("A triangle has been created with height:"+a+" and base:"+ b);
+  }
+   
+    public Shape2D(int a,int b,int c){
+    name="Triangle";
+    double s=(a+b+c)*0.5;
+    double p=s*(s-a)*(s-b)*(s-c);
+    area=Math.sqrt(p);
+      System.out.println("A triangle has been created with following sides"+ a+","+b+","+c);
+  }
+}
+
+#Task-04
+Write  “Student“ class to show the following expected outputs
+Note:
+❖	A student can’t take any course until the CGPA is set.
+❖	A student cannot take more than 4 courses.
+❖	A student with CGPA below 3 cannot take more than 3 courses.
+
+public class StudentDriver {
+  public static void main(String[] args){
+    Student student1 = new Student(12345678);
+    System.out.println("1-----------------");
+    student1.addCourse("CSE110");
+    System.out.println("2-----------------");
+    student1.storeCG(2.5);
+    student1.addCourse("CSE110");
+    student1.addCourse("ENG101");
+    student1.showAdvisee();
+    System.out.println("3-----------------");
+    student1.removeAllCourse();
+    student1.showAdvisee();
+    System.out.println("4-----------------");
+    student1.storeID(54652365);
+    String[] courses = {"SOC101","CSE111","ENG102"};
+    student1.addCourse(courses);
+    student1.showAdvisee();
+    System.out.println("5-----------------");
+    student1.addCourse("CSE230");
+    student1.showAdvisee();
+    System.out.println("6-----------------");
+    Student student2 = new Student(975738383,3.7);
+    System.out.println("7-----------------");
+    String[] courses2 = {"CSE220","PHY112","MAT120","BUS101","CHN101"};
+    student2.addCourse(courses2);
+    student2.showAdvisee();
+  }
+}
+
+public class Student {
+    private int id;
+    private double cgpa;
+    private String[] courses;
+    private int courseCount;
+
+    // Constructor 1: Only ID
+    public Student(int id) {
+        this.id = id;
+        System.out.println("A student with ID " + id + " has been created.");
+        this.courses = new String[4]; // Max 4 courses allowed
+        this.courseCount = 0;
+    }
+
+    // Constructor 2: ID and CGPA
+    public Student(int id, double cgpa) {
+        this.id = id;
+        this.cgpa = cgpa;
+        System.out.println("A student with ID " + id + " and cgpa " + cgpa + " has been created.");
+        this.courses = new String[4];
+        this.courseCount = 0;
+    }
+
+    // Method to store/update CGPA
+    public void storeCG(double cg) {
+        this.cgpa = cg;
+    }
+
+    // Method to store/update ID
+    public void storeID(int newID) {
+        this.id = newID;
+    }
+
+    // Add a single course
+    public void addCourse(String course) {
+        if (cgpa == 0.0) {
+            System.out.println("Failed to add " + course);
+            System.out.println("Set CG first");
+            return;
+        }
+
+        int maxCourses = (cgpa < 3.0) ? 3 : 4;
+
+        if (courseCount >= maxCourses) {
+            System.out.println("Failed to add " + course);
+            if (cgpa < 3.0)
+                System.out.println("CG is low. Can't add more than 3 courses.");
+            else
+                System.out.println("Maximum 4 courses allowed.");
+            return;
+        }
+
+        courses[courseCount] = course;
+        courseCount++;
+    }
+
+    // Add multiple courses
+    public void addCourse(String[] newCourses) {
+        for (int i = 0; i < newCourses.length; i++) {
+            addCourse(newCourses[i]);
+        }
+    }
+
+    // Remove all courses
+    public void removeAllCourse() {
+        this.courses = new String[4];
+        this.courseCount = 0;
+    }
+
+    // Show advisee info
+    public void showAdvisee() {
+        System.out.println("Student ID: " + id + ", CGPA: " + cgpa);
+
+        if (courseCount == 0) {
+            System.out.println("No courses added.");
+            return;
+        }
+
+        System.out.println("Added courses are:");
+        for (int i = 0; i < courseCount; i++) {
+            System.out.print(courses[i] + " ");
+        }
+        System.out.println();
+    }
+}
+
+#Task-05
+Design the Triangle Class that will produce the following output. We will consider both triangles to have the same sides if all sides are equal in the same orientation/sequence only.
+Types of Triangle:
+●	Equilateral: When all sides in the same orientation are equal.
+●	Isosceles: When any two sides of a triangle in the same orientation are equal.
+●	Scalene: When all sides are of different lengths.
+
+public class TriangleTester{
+ public static void main(String args[]){
+   Triangle t1 =  new Triangle();
+   Triangle t2 =  new Triangle();
+   Triangle t3 =  new Triangle();
+   Triangle t4 =  new Triangle();
+
+   t1.updateSides(4, 4, 4);
+   t2.updateSides(4, 5, 6);
+   t3.updateSides(4, 5, 6);
+   t4.updateSides(5, 4, 6);
+
+   t1.triangleDetails();
+   System.out.println("--------1--------");
+   System.out.println(t1.printTriangleType());
+   System.out.println("--------2--------");
+   t3.triangleDetails();
+   System.out.println(t3.printTriangleType());
+   System.out.println("--------3--------");
+   t4.triangleDetails();
+   System.out.println(t4.printTriangleType());
+   System.out.println("--------4--------");
+   t2.compareTrinagles(t3);
+   System.out.println("--------5--------");
+   t1.compareTrinagles(t2);
+   System.out.println("--------6--------");
+   t1 = t2;
+   t1.compareTrinagles(t2);
+   System.out.println("--------7--------");
+   t3.compareTrinagles(t4);
+ }
+}
+
+public class Triangle {
+    private int side1;
+    private int side2;
+    private int side3;
+
+    // Default constructor
+    public Triangle() {
+        side1 = 0;
+        side2 = 0;
+        side3 = 0;
+    }
+
+    // Method to update sides
+    public void updateSides(int s1, int s2, int s3) {
+        side1 = s1;
+        side2 = s2;
+        side3 = s3;
+    }
+
+    // Method to show triangle details
+    public void triangleDetails() {
+        System.out.println("Three sides of the triangle are: " + side1 + ", " + side2 + ", " + side3);
+        System.out.println("Perimeter: " + (side1 + side2 + side3));
+    }
+
+    // Method to print triangle type
+    public String printTriangleType() {
+        if (side1 == side2 && side2 == side3) {
+            return "This is an Equilateral Triangle.";
+        } else if (side1 == side2 || side2 == side3 || side1 == side3) {
+            return "This is an Isosceles Triangle.";
+        } else {
+            return "This is a Scalene Triangle.";
+        }
+    }
+
+    // Method to compare triangles
+    public void compareTrinagles(Triangle t) {
+        // Check if both references point to the same object
+        if (this == t) {
+            System.out.println("These two triangle objects have the same address.");
+            return;
+        }
+
+        // Check if sides are equal in same orientation
+        boolean sidesEqual = (this.side1 == t.side1 && this.side2 == t.side2 && this.side3 == t.side3);
+
+        // Check if perimeter is equal
+        int thisPerimeter = side1 + side2 + side3;
+        int tPerimeter = t.side1 + t.side2 + t.side3;
+
+        if (sidesEqual) {
+            System.out.println("Addresses are different but the sides of the triangles are equal.");
+        } else if (thisPerimeter == tPerimeter) {
+            System.out.println("Only the perimeter of both triangles is equal.");
+        } else {
+            System.out.println("Addresses, length of the sides and perimeter all are different.");
+        }
+    }
+}
+
+
+    
+  
+    
+  
+  
+  
+  
+    
 
