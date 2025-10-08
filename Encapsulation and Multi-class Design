@@ -1,1 +1,1005 @@
 Encapsulation and Multi-class Design
+
+#Task-01
+Write a class called Circle with the required constructor and methods to get the following output.
+Subtasks:
+1. Create a class called Circle.
+2. Create the required constructor. Use Encapsulation to protect the variables. [Hint: Assign the radius variable in private]
+3. Create a getRadius() and setRadius() method to access variables.  
+4. Create a method called area to calculate the area of circles.
+
+public class CircleTester {
+  public static void main(String[] args) {
+    Circle c1 = new Circle(4);
+    System.out.println("1---------------");
+    System.out.println("First circle radius: " + c1.getRadius());
+    System.out.println("First circle area: " + c1.area());
+    System.out.println("2---------------");
+    Circle c2 = new Circle(5);
+    System.out.println("Second circle radius: " + c2.getRadius());
+    System.out.println("Second circle area: " + c2.area());
+    System.out.println("3---------------"); 
+  }
+}
+
+public class Circle{
+  private double radius;
+  public static int count;
+  private double area;
+  
+  public Circle(int a){
+    count++;
+    setRadius(a);
+  }
+  
+  public double getRadius(){
+    return radius;
+  }
+  
+  public void setRadius(int a){
+    radius=(double) a;
+  }
+  
+  public double area(){
+    area=3.1416*radius*radius;
+    return area;
+  }
+}
+  
+#Task-02
+Design the required class/es so that the following output is generated. Read the following description:
+1.	You may assume that to board a bus, a student must have the bus pass, and his/her location must match the route of the bus.
+2.	Additionally, the default maximum capacity of the bus is 2.
+3.	The location attribute of the Student class will be private
+
+public class BracuStudentTester {
+ public static void main(String[] args) {
+  BracuStudent st1 = new BracuStudent("Afif", "Mirpur");
+  System.out.println("1===============");
+  BracuStudent st2 = new BracuStudent("Shanto", "Motijheel");
+  BracuStudent st3 = new BracuStudent("Taskin", "Mirpur");
+  st1.showDetails();
+  st2.showDetails();
+  System.out.println("2===============");
+  st3.showDetails();
+  System.out.println("3===============");
+  BracuBus bus1 = new BracuBus("Mirpur");
+  BracuBus bus2 = new BracuBus("Azimpur", 5);
+  bus1.showDetails();
+  bus2.showDetails();
+  System.out.println("4===============");
+  st2.collectPass();
+  st3.collectPass();
+  System.out.println("5===============");
+  st2.showDetails();
+  st3.showDetails();
+  System.out.println("6===============");
+  bus1.board();
+  System.out.println("7===============");
+  bus1.board(st1, st2);
+  System.out.println("8===============");
+  st1.collectPass();
+  st2.setLocation("Mirpur");
+  st1.showDetails();
+  st2.showDetails();
+  System.out.println("9===============");
+  bus1.board(st1);
+  bus1.board(st2, st3);
+  System.out.println("10===============");
+  bus1.showDetails();
+ }
+}
+
+public class BracuStudent {
+  private String name;
+  private String location;
+  private boolean hasPass;
+
+  public BracuStudent(String name, String location) {
+    this.name = name;
+    this.location = location;
+  }
+
+  public void showDetails() {
+    System.out.println("Student Name: " + name);
+    System.out.println("Lives in " + location);
+    System.out.println("Have Bus Pass? " + hasPass);
+  }
+
+  public void collectPass() {
+    hasPass = true;
+  }
+
+  public void setLocation(String newLocation) {
+    location = newLocation;
+  }
+
+  public boolean hasPass() {
+    return hasPass;
+  }
+
+  public String getLocation() {
+    return location;
+  }
+
+  public String getName() {
+    return name;
+  }
+}
+
+public class BracuBus {
+  private String route;
+  private int maxCapacity;
+  private BracuStudent[] passengers;
+  private int passengerCount;
+
+  public BracuBus(String route) {
+    this.route = route;
+    this.maxCapacity = 2;
+    passengers = new BracuStudent[maxCapacity];
+  }
+
+  public BracuBus(String route, int maxCapacity) {
+    this.route = route;
+    this.maxCapacity = maxCapacity;
+    passengers = new BracuStudent[maxCapacity];
+  }
+
+  public void showDetails() {
+    System.out.println("Bus Route: " + route);
+    System.out.println("Passenger Count: " + passengerCount + " (Max: " + maxCapacity + ")");
+    System.out.print("Passengers on Board: ");
+    if (passengerCount == 0) {
+      System.out.println();
+    } else {
+      System.out.println();
+      for (int i = 0; i < passengerCount; i++) {
+        System.out.print(passengers[i].getName());
+        if (i < passengerCount - 1) System.out.print(" ");
+      }
+      System.out.println();
+    }
+  }
+
+  public void board() {
+    System.out.println("No passengers");
+  }
+
+  public void board(BracuStudent s1) {
+    if (!s1.hasPass()) {
+      System.out.println("You don't have a bus pass!");
+      return;
+    }
+    if (!s1.getLocation().equals(route)) {
+      System.out.println("You got on the wrong bus!");
+      return;
+    }
+    if (passengerCount >= maxCapacity) {
+      System.out.println("Bus is full!");
+      return;
+    }
+    passengers[passengerCount] = s1;
+    passengerCount++;
+    System.out.println(s1.getName() + " boarded the bus.");
+  }
+
+  public void board(BracuStudent s1, BracuStudent s2) {
+    board(s1);
+    board(s2);
+  }
+}
+
+#Task-03
+
+Design the Student and the Connect class so that the following output is produced.
+Note:
+●	A student's email, password, and login status are null by default while creating an object of the Student class.
+●	The password and login status attributes of the Student class will be private
+●	Your code should satisfy the conditions mentioned in the output only.
+●	Connect class will have two instance variables: totalAdvisee and an array of Student type to store the student object. The array will be updated inside the advising() method only when the advising is successful.
+●	Connect can take at most 5 advisees.
+
+public class ConnectTester {
+  public static void main(String[] args) {
+    Student rakib = new Student("Rakib", 12301455, "CSE");
+    Student roy = new Student("Roy", 12501345, "CS");
+    System.out.println("1*************");
+    Connect connectObj = new Connect();
+    System.out.println("2*************");
+    connectObj.login(rakib);
+    System.out.println("3*************");
+    connectObj.advising(rakib);
+    System.out.println("4*************");
+    rakib.email = "rakib@hotmail.com";
+    rakib.setPassword("1234");
+    System.out.println("5*************");
+    connectObj.login(rakib);
+    System.out.println("6*************");
+    connectObj.advising(rakib);
+    System.out.println("7*************");
+    connectObj.advising(rakib, "CSE110", "PHY111", "MAT110", "CSE260");
+    System.out.println("8*************");
+    connectObj.advising(rakib, "CSE110", "PHY111","MAT110");
+    System.out.println("9*************");
+    connectObj.allAdviseeInfo();
+    System.out.println("10*************");
+    roy.email = "roy@hotmail.com";
+    roy.setPassword("abcd");
+    connectObj.login(roy);
+    System.out.println("11*************");
+    connectObj.advising(roy, "CSE110", "ENG101", "PHY112");
+    System.out.println("12*************");
+    connectObj.allAdviseeInfo();
+  }
+}
+
+public class Student {
+    String name;
+    int id;
+    String dept;
+    String email;
+    private String password;
+    private boolean loginStatus;
+    String[] courses;
+
+    public Student(String name, int id, String dept) {
+        this.name = name;
+        this.id = id;
+        this.dept = dept;
+        System.out.println("Student object is created");
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setLoginStatus(boolean status) {
+        this.loginStatus = status;
+    }
+
+    public boolean getLoginStatus() {
+        return loginStatus;
+    }
+}
+
+public class Connect {
+    int totalAdvisee;
+    Student[] advisees;
+
+    public Connect() {
+        advisees = new Student[5];
+        System.out.println("Connect is ready to use!");
+    }
+
+    public void login(Student s) {
+        if (s.email == null || s.getPassword() == null) {
+            System.out.println("Email and password need to be set.");
+        } else {
+            s.setLoginStatus(true);
+            System.out.println("Login successful");
+        }
+    }
+
+    public void advising(Student s) {
+        if (!s.getLoginStatus()) {
+            System.out.println("Please login to advise courses!");
+        } else {
+            System.out.println("You haven't selected any courses.");
+        }
+    }
+
+    public void advising(Student s, String c1, String c2, String c3, String c4) {
+        System.out.println("You need special approval to take more than 3 courses.");
+    }
+
+    public void advising(Student s, String c1, String c2, String c3) {
+        if (totalAdvisee < 5) {
+            s.courses = new String[]{c1, c2, c3};
+            advisees[totalAdvisee] = s;
+            totalAdvisee++;
+            System.out.println("Advising successful!");
+        }
+    }
+
+    public void allAdviseeInfo() {
+        System.out.println("Total Advisee: " + totalAdvisee);
+        for (int i = 0; i < totalAdvisee; i++) {
+            Student s = advisees[i];
+            System.out.println("Name: " + s.name + " ID: " + s.id);
+            System.out.println("Department: " + s.dept);
+            System.out.println("Advised Courses: ");
+            for (int j = 0; j < s.courses.length; j++) {
+                System.out.print(s.courses[j] + " ");
+            }
+            System.out.println("\n==============");
+        }
+    }
+}
+
+#Task-04
+Write the  “Product” class to show the following output
+Note: Make sure to use proper Encapsulation concepts for the setter & getter methods. All the attributes should have Private access.
+
+public class ProductTester{
+  public static void main(String[] args) {
+    System.out.println("< —--—----1—-------->");
+    Product product1 = new Product();
+    product1.displayInfo();
+    System.out.println("< —--—----2—-------->");
+    Product product2 = new Product("Laptop", 1200.00);
+    product2.setQuantity(10);
+    product2.displayInfo(true); 
+    System.out.println("< —--—----3—-------->");
+    System.out.println("Retrieved Price: $" + product2.getPrice());
+    System.out.println("Retrieved Quantity: " + product2.getQuantity());
+   }
+}
+
+public class Product{
+  private String name;
+  private double price;
+  private int quantity;
+  
+  public void displayInfo(){
+    System.out.println("Product Name: "+name);
+    System.out.println("Price: $"+price);
+  }
+  
+  public Product(String a,double b){
+    name=a;
+    price=b;
+  }
+  
+  public void setQuantity(int a){
+    quantity=a;
+  }
+  
+  public void displayInfo(boolean b){
+    if(b==true){
+      System.out.println("Product Name: "+name);
+      System.out.println("Price: $"+price);
+      System.out.println("Quantity: "+quantity);
+    }
+  }
+  
+  public Product(){
+  }
+  
+  public double getPrice(){
+    return price;
+  }
+  
+  public int getQuantity(){
+    return quantity;
+  }
+}
+
+#Task-05
+Design the Company and Employee classes so that the Tester1 class produces the given outputs. [All attributes of Employee class should be Private]
+Restriction: Company class can’t have more than 1 array. 
+
+public class Tester5{
+  public static void main(String args[]){
+    Employee e1 = new Employee();
+    Employee e2 = new Employee("Alif", 34, "Fulltime");
+    System.out.println("1-------------");
+    Company c1 = new Company();
+    c1.details();
+    System.out.println("2-------------");
+    Employee e3 = new Employee("Akter", 36,"Part-time");
+    Employee e4 = new Employee("Ria", 38, "Fulltime");
+    System.out.println("3-------------");
+    c1.addEmployee(e2);
+    c1.addEmployee(e3);
+    System.out.println("4-------------");
+    c1.details();
+    System.out.println("5-------------");
+    c1.addEmployee(e4);
+    c1.addEmployee(e1);
+    System.out.println("6-------------");
+    c1.details();
+    System.out.println("7-------------");
+    c1.removeEmployee(e4);
+    System.out.println("6-------------");
+    c1.details();
+  }
+}
+
+public class Employee{
+  private String name;
+  private int id;
+  private String type;
+  
+  public Employee(){
+    System.out.println("A default employee has been created");
+  }
+  public Employee(String a, int b, String c){
+    name=a;
+    id=b;
+    type=c;
+  }
+  
+  public String getType(){
+    return type;
+  }
+  public String getName(){
+    return name;
+  }
+  public int getID(){
+    return id;
+  }
+}
+
+public class Company{
+  public String name="ABC Company";
+  public int number;
+  public Employee [] employee= new Employee [3];
+  
+  public void details(){
+    System.out.println("Company Name: "+name);
+    System.out.println("Total Employee: "+number);
+    for(int i=0; i<number; i++){
+      if(employee [i].getType()=="Fulltime"){
+        System.out.println("Name: "+ employee [i].getName()+", ID: "+employee [i].getID());
+      }
+      else if(employee [i].getType()=="Part-time"){
+        System.out.println("Name: "+ employee [i].getName()+", ID: "+employee [i].getID());
+      }
+    }
+  }
+  
+  public void addEmployee(Employee e){
+    if(number < 3){
+      employee [number]= e;
+      System.out.println(e. getName() +" has joined the company");
+      number++;
+    }
+    else{
+      System.out.println("No more vacancy");
+    }
+  }
+  
+  public void removeEmployee(Employee e){
+    employee [number-1]= null;
+    System.out.println(e.getName()+" has left the company");
+    number--;
+  }
+}
+
+#Task-06
+Please write the Student and Department class with the necessary properties so that the provided driver code generates the output. The id of the Student class will be private. For simplicity, assume that a department can add a maximum of 5 students. 
+
+public class Tester6 {
+ public static void main(String[] args) {
+  Student s1 = new Student("Akib", 10, 3.29);
+  Student s2 = new Student("Reza", 15, 3.45);
+  Student s3 = new Student("Kabir", 20,4.0);
+  System.out.println("1===========");
+  Department cse = new Department("CSE");
+  cse.findStudent(-100);
+  System.out.println("2===========");
+  cse.addStudent(s1, s2, s3);
+  System.out.println("3===========");
+  cse.details();
+  System.out.println("4===========");
+  cse.findStudent(15);
+  System.out.println("5===========");
+  Student s4 = new Student("Nakib", 15,3.22);
+  cse.addStudent(s4);
+  System.out.println("6===========");
+  s4.setId(25);
+  cse.addStudent(s4);  
+  System.out.println("7===========");
+  cse.details();
+  System.out.println("8===========");
+  Student s5 = new Student("Sakib", 30,2.29);
+  cse.addStudent(s5);
+  System.out.println("9===========");
+  cse.details();
+ }
+}
+
+public class Department{
+  public String name;
+  public int count;
+  public Student [] arr= new Student [5];
+  public Department(String a){
+    name=a;
+  }
+  
+  public void findStudent(int a){
+    if(a < 0){
+      System.out.println("Student with this ID doesn't exist, Please give a valid ID");
+    }
+    else {
+      for(int i=0; i<count; i++){
+        if(arr [i].getID()==a){
+        System.out.println("Student info:");
+        System.out.println("Student Name: "+ arr [i].name);
+        System.out.println("Student ID: "+ arr [i].getID());
+        System.out.println("Student CGPA: "+ arr [i].cgpa);
+        }
+      }
+    }
+  }
+  
+  public void addStudent(Student a, Student b, Student c){
+    if(count < 5){
+      for(int i=0; i<count; i++){
+        if(arr [i].getID() == a.getID()){
+          System.out.println("Student with the same ID already exists, Please try with another ID");
+          break;
+        }
+      }
+    arr[count]=a;
+    count++;
+    System.out.println("Welcome to CSE department, "+a.name);
+    }
+    if(count < 5){
+      for(int i=0; i<count; i++){
+        if(arr [i].getID() == b.getID()){
+          System.out.println("Student with the same ID already exists, Please try with another ID");
+          break;
+        }
+      }
+    arr[count]=b;
+    count++;
+    System.out.println("Welcome to CSE department, "+b.name);
+    }
+    if(count < 5){
+      for(int i=0; i<count; i++){
+        if(arr [i].getID() == c.getID()){
+          System.out.println("Student with the same ID already exists, Please try with another ID");
+          break;
+        }
+      }
+    arr[count]=c;
+    count++;
+    System.out.println("Welcome to CSE department, "+c.name);
+    }
+  }
+  
+  public void details(){
+    System.out.println("Department Name: "+ name);
+    System.out.println("Number of Students: "+ count);
+    System.out.println("Details of the students: ");
+    for(int i=0; i< count; i++){
+      System.out.println("Student name: "+ arr[i].name+", ID: "+ arr[i].getID()+", cgpa:"+ arr[i].cgpa);
+    }
+  }
+  
+  public void addStudent(Student a){
+    if(count < 5){
+      for(int i=0; i<count; i++){
+        if(arr [i].getID() == a.getID()){
+          System.out.println("Student with the same ID already exists, Please try with another ID");
+          break;
+        }
+      }
+    arr[count]=a;
+    count++;
+    System.out.println("Welcome to CSE department, "+a.name);
+    }
+  }
+}
+
+public class Student {
+    String name;
+    private int id;
+    double cgpa;
+
+    public Student(String n, int i, double c) {
+        name = n;
+        id = i;
+        cgpa = c;
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public void setId(int newId) {
+        id = newId;
+    }
+}
+
+#Task-07
+Spaceship: This class represents a spaceship. Each spaceship has a name and a capacity (the maximum weight it can carry).
+
+Cargo: This class represents a piece of cargo. Each cargo item has a name and a weight. Both attributes should be private which means they cannot be accessed directly from outside of the class.
+A Spaceship contains Cargo. That means each spaceship can carry multiple cargo items, but the total weight of the cargo cannot exceed the spaceship's capacity. Also, the maximum number of cargo items is 100. Your task is to design the Spaceship and Cargo class with necessary properties so that the given output is produced for the provided driver code.
+
+public class Tester2 {
+ public static void main(String[] args) {
+  Spaceship falcon = new Spaceship("Falcon", 50000);
+  Spaceship apollo = new Spaceship("Apollo", 100000);
+  Spaceship enterprise = new Spaceship("Enterprise",220000);      
+  System.out.println("1.===========");
+  Cargo gold = new Cargo("Gold", 20000);
+  Cargo platinum = new Cargo("Platinum", 25000);
+  Cargo dilithium = new Cargo("Dilithium", 50000);
+  Cargo trilithium = new Cargo("Trilithium", 70000);
+  Cargo neutronium = new Cargo("Neutronium", 80000);
+  System.out.println("2.===========");
+  falcon.loadCargo(gold);
+  falcon.loadCargo(platinum);
+  falcon.displayDetails();
+  System.out.println("3.===========");
+  apollo.loadCargo(gold);
+  apollo.displayDetails();
+  System.out.println("4.===========");
+  falcon.loadCargo(neutronium);
+  System.out.println("5.===========");
+  enterprise.loadCargo(dilithium);
+  enterprise.loadCargo(trilithium);
+  enterprise.loadCargo(neutronium);
+  enterprise.displayDetails();
+ }
+}
+
+public class Cargo{
+    public static double capacity=10.0;
+    public static int id;
+    public String name;
+    public double weight;
+    public boolean loaded;
+    
+    public static double capacity(){
+      return capacity;
+    }
+
+    public Cargo(String a, double b) {
+        weight= b;
+        name = a;
+        loaded = false;
+        id++;
+    }
+
+    public void details() {
+        System.out.println("Cargo ID: " + id);
+        System.out.println("Contents: " + name);
+        System.out.println("Cargo Weight: " + weight);
+        System.out.println("Cargo Loaded: " + loaded);
+    }
+
+    public void load() {
+      if(capacity > weight){
+        loaded = true;
+        capacity=capacity-weight;
+        System.out.println("Cargo "+id+" loaded for transport.");
+    }
+      else{
+        System.out.println("Cannot load cargo, exceeds weight capacity.");
+      }
+    }
+
+    public void unload() {
+        loaded = false;
+        capacity=capacity+weight;
+    }
+}
+
+public class Spaceship{
+  public String name;
+  public int capacity;
+  public int current_weight;
+  public int remaining_weight=capacity;
+  public int count;
+  public Cargo [] arr= new Cargo [100];
+  
+  public Spaceship(String a, int b){
+    name= a;
+    capacity=b;
+  }
+  
+  public void loadCargo(Cargo a){
+    if(remaining_weight > a.getWeight()){
+      arr [count] = a;
+      count++;
+      current_weight=current_weight+a.getWeight();
+      remaining_weight=remaining_weight-current_weight;
+    }
+    else{
+      System.out.println("Warning: Unable to load "+a.getname()+" inside "+ name+". Exceeds capacity by "+(a.getWeight()-remaining_weight));
+    }
+  }
+  
+  public void displayDetails(){
+    System.out.println("Spaceship Name: "+name);
+    System.out.println("Capacity: "+capacity);
+    System.out.println("Current Cargo weight: "+current_weight);
+    System.out.println("Cargo: ");
+    for(int i=0; i<count; i++){
+      System.out.println(arr [i].getname());
+    }
+  }
+}
+      
+#Task-08
+Design the Vaccine and Person class so that the following expected output is generated.
+[N.B: Students will get vaccines on a priority basis. So, age doesn’t matter for students. All attributes of Vaccine class should be Private.]
+
+public class VaccineTester {
+  public static void main(String[] args) {
+    Vaccine astra = new Vaccine("AstraZeneca", "UK", 60);
+    Vaccine modr = new Vaccine("Moderna", "UK", 30);
+    Vaccine sin = new Vaccine("Sinopharm", "China", 30);
+
+    Person p1 = new Person("Bob", 21, "Student");
+    System.out.println("=================");
+    p1.pushVaccine(astra);
+    System.out.println("=================");
+    p1.showDetail();
+    System.out.println("=================");
+    p1.pushVaccine(sin, "2nd Dose");
+    System.out.println("=================");
+    p1.pushVaccine(astra, "2nd Dose");
+    System.out.println("=================");
+    p1.showDetail();
+    System.out.println("=================");
+    p1.pushVaccine(astra, "2nd Dose");
+    System.out.println("=================");
+    p1.showDetail();
+    System.out.println("=================");
+
+    Person p2 = new Person("Carol", 23, "Actor");
+    System.out.println("=================");
+    p2.pushVaccine(sin);
+    System.out.println("=================");
+
+    Person p3 = new Person("David", 34);
+    System.out.println("=================");
+    p3.pushVaccine(modr, "2nd Dose");
+    System.out.println("=================");
+    p3.pushVaccine(modr, "1st Dose");
+    System.out.println("=================");
+    p3.showDetail();
+    System.out.println("=================");
+    p3.pushVaccine(modr, "2nd Dose");
+  }
+}
+
+public class Vaccine {
+    private String name;
+    private String country;
+    private int gap;
+
+    public Vaccine(String name, String country, int gap) {
+        this.name = name;
+        this.country = country;
+        this.gap = gap;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getGap() {
+        return gap;
+    }
+}
+
+public class Person {
+    String name;
+    int age;
+    String type;
+    Vaccine vaccine;
+    boolean firstDose = false;
+    boolean secondDose = false;
+
+    public Person(String name, int age, String type) {
+        this.name = name;
+        this.age = age;
+        this.type = type;
+    }
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+        this.type = "General Citizen";
+    }
+
+    public void pushVaccine(Vaccine v) {
+        if (!type.equals("Student") && age < 25) {
+            System.out.println("Sorry " + name + ", Minimum age for taking vaccines is 25 years now.");
+        } else {
+            if (vaccine == null) {
+                vaccine = v;
+                firstDose = true;
+                System.out.println("1st dose done for " + name);
+            } else {
+                System.out.println("Sorry " + name + ", you can’t take 2 different vaccines");
+            }
+        }
+    }
+
+    public void pushVaccine(Vaccine v, String dose) {
+        if (dose.equals("1st Dose")) {
+            if (vaccine == null) {
+                pushVaccine(v);
+            } else {
+                System.out.println("Sorry " + name + ", you can’t take 2 different vaccines");
+            }
+        } else if (dose.equals("2nd Dose")) {
+            if (vaccine == null) {
+                System.out.println("Sorry " + name + ", invalid dose request.");
+            } else if (!vaccine.getName().equals(v.getName())) {
+                System.out.println("Sorry " + name + ", you can’t take 2 different vaccines");
+            } else if (secondDose) {
+                System.out.println("Sorry " + name + ", you already received both doses.");
+            } else if (!firstDose) {
+                System.out.println("Sorry " + name + ", invalid dose request.");
+            } else {
+                secondDose = true;
+                System.out.println("2nd dose done for " + name);
+            }
+        } else {
+            System.out.println("Sorry " + name + ", invalid dose request.");
+        }
+    }
+
+    public void showDetail() {
+        if (vaccine == null) {
+            System.out.println("Name: " + name + " Age: " + age + " Type: " + type);
+            System.out.println("No vaccine taken yet.");
+        } else {
+            System.out.println("Name: " + name + " Age: " + age + " Type: " + type);
+            System.out.println("Vaccine name: " + vaccine.getName());
+            System.out.println("1st dose: " + (firstDose ? "Given" : "Not Given"));
+            if (secondDose) {
+                System.out.println("2nd dose: Given");
+            } else {
+                System.out.println("2nd dose: Please come after " + vaccine.getGap() + " days");
+            }
+        }
+    }
+}
+
+#Task-09
+Design the Library and Reader class so that the following output is generated.
+
+Read the following description:
+●	The Library class has two pairs of arrays: one pair contains borrower information(the name of borrowers and the number of books they borrowed) and the other contains book availability information (book type and their remaining number)
+●	A reader cannot borrow more than 5 books.
+●	If a book’s availability is 0 in the Library, then the reader cannot borrow that book.
+●	The readerInfo method in the Reader class prints the type and the number of all books borrowed if no parameter is passed, else it prints the number of books borrowed of the specific type mentioned in the parameter. You may use the default argument for this.
+
+public class LibraryTester {
+ public static void main(String[] args) {
+   String [] genres = {"Arts", "Fiction", "Politics", "Science", "Poetry"};
+   int [] available =  {15, 135, 2, 11, 15};
+   Library L1 = new Library("Dhaka", genres,available);
+   L1.details();
+   System.out.println("1----------------------");
+   Reader r1 = new Reader("Aladdin", L1.getBookTypes());
+   r1.borrow(L1, "Arts", "Fiction", "Fiction", "Politics");
+   System.out.println("2----------------------");
+   r1.borrow(L1, "Politics", "Fiction");
+   System.out.println("3----------------------");
+   r1.readerInfo();
+   System.out.println("4----------------------");
+   r1.readerInfo("Fiction");
+   System.out.println("5----------------------");
+   L1.details();
+   System.out.println("6----------------------");
+   Reader r2 = new Reader("Jasmine", L1.getBookTypes());
+   r2.borrow(L1, "Politics", "Poetry");
+   System.out.println("7----------------------");
+   r2.readerInfo();
+   System.out.println("8----------------------");
+   L1.details();
+ }
+}
+
+public class Reader {
+  public String name = "new user";
+  public int capacity=0;
+  public String [] arr;
+  public int count;
+  public int p=0;
+  
+  public String createReader(String a, int b){
+    name=a;
+    capacity = b;
+    arr= new String [b];
+    return "A new reader is created !";
+  }
+  
+  public void readerInfo(){
+    System.out.println("Name: "+name);
+    System.out.println("Capacity: "+capacity);
+    System.out.println("Book:");
+    if(p==0){
+      System.out.println("No books added yet");
+    }
+    else if (count <= capacity){
+      for(int i=0; i<count; i++){
+        System.out.println("Books "+(i+1)+": "+ arr[i]);
+      }
+    }
+  }
+  public void addBook(String a){
+    if(count < capacity){
+      p++;
+      arr[count]=a;
+      count++;
+    }
+    else if(count >= capacity){
+      System.out.println("No more capacity");
+    }
+  }
+}
+
+public class Library{
+  public String [] arr;
+  public int capacity;
+  public int number;
+  
+  public void setBookCapacity(int a){
+    capacity=a;
+    arr=new String [a];
+  }
+  
+  public void addBook(String a){
+    if(capacity > number){
+      arr[number]=a;
+      number++;
+      System.out.println("Book "+"'"+a+"'"+" added to the library");
+    }
+    else if(capacity <= number){
+      System.out.println("Maximum capacity exceeds. You can't add more than "+capacity+" books");
+    }
+  }
+  
+  public void printDetail(){
+    System.out.println("Maximum Capacity: "+capacity);
+    System.out.println("Total Books: "+ number);
+    for(int i=0;i<number;i++){
+      System.out.println(arr[i]);
+    }
+  }
+}
+
+
+
+
+
+
+    
+  
+  
+    
+    
+    
+    
+    
+      
+      
+      
+
+
+
+
+
+
+        
+  
+  
+  
+
+  
+    
+    
+
+  
+  
+  
+      
+    
+    
+  
+
