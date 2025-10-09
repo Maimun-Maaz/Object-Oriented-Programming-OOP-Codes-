@@ -1,1 +1,275 @@
 Inheritance and Overriding
+
+#Task-01
+Given the following classes, write the code for the BBAStudent class so that the following output is printed when we run the TestStudent class.
+public class Student{
+  private String name = "Just a Student"; 
+  private String department = "nothing";
+  
+  public void setDepartment(String dpt){
+    this.department = dpt;
+  }
+  public void setName(String name){
+    this.name = name;
+  }
+  public void details(){
+    System.out.println("Name : " + name + " Department: " + department);
+  }
+}
+
+
+//Tester Class
+public class TestStudent{
+  public static void main(String [] args){
+    BBAStudent b1 = new BBAStudent();
+    BBAStudent b2 = new BBAStudent("Humty Dumty");
+    BBAStudent b3 = new BBAStudent("Little Bo Peep"); 
+    b1.details();
+    System.out.println("1---------------");
+    b2.details();
+    System.out.println("2---------------");
+    b3.details();
+  }
+}
+
+public class BBAStudent extends Student {
+
+    public BBAStudent() {
+        setName("Default");
+        setDepartment("BBA");
+    }
+
+    public BBAStudent(String name) {
+        setName(name);
+        setDepartment("BBA");
+    }
+}
+
+#Task-02
+Design the CheckingAccount class derived from the Account class with appropriate attributes and properties so that the driver code can generate the output given below. 
+
+public class Account{
+  public double balance = 0.0;
+  
+  public Account(double balance){
+    this.balance = balance;
+  }
+  public double showBalance(){
+    return balance;
+  }
+}
+ 
+//Tester Class
+public class TestAccount{
+  public static void main(String [] args){
+    System.out.println("Total Checking Accounts: "+CheckingAccount.count);
+    CheckingAccount c1 = new CheckingAccount();
+    System.out.println("Account Balance: " + c1.showBalance());
+    CheckingAccount c2 = new CheckingAccount(100.0);
+    System.out.println("Account Balance: " + c2.showBalance());
+    CheckingAccount c3 = new CheckingAccount(200.0);
+    System.out.println("Account Balance: " + c3.showBalance());
+    System.out.println("Total Checking Accounts: "+CheckingAccount.count);
+  }
+}
+
+public class CheckingAccount extends Account {
+    public static int count = 0;
+
+    public CheckingAccount() {
+        super(0.0);
+        count++;
+    }
+
+    public CheckingAccount(double balance) {
+        super(balance);
+        count++;
+    }
+}
+
+#Task-03
+Design the Dog and Cat class derived from the Animal class with appropriate attributes and properties so that the driver code can generate the output given below.
+
+public class Animal {
+    public String name;
+    public int age;
+    public String color;
+    public Animal(String name, int age, String color) {
+        this.name = name;
+        this.age = age;
+        this.color = color;
+    }
+    public void makeSound() {
+        System.out.println("Animal makes a sound");
+    }
+    public String info() {
+        return "Name: "+name+"\nAge: "+age+"\nColor: "+color+"\n";
+    }
+}
+
+public class AnimalTester {
+    public static void main(String[] args) {
+      Dog dog = new Dog("Buddy", 5, "Brown", "Bulldog");
+      Cat cat = new Cat("Kitty", 3, "White", "Persian");
+      System.out.println("1.========");
+      System.out.println(dog.info());
+      System.out.println("2.========");
+      System.out.println(cat.info());
+      System.out.println("3.========");
+      dog.makeSound();
+      System.out.println("4.========");
+      cat.makeSound();
+    }
+}
+
+public class Dog extends Animal {
+    public String breed;
+
+    public Dog(String name, int age, String color, String breed) {
+        super(name, age, color);
+        this.breed = breed;
+    }
+
+    @Override
+    public String info() {
+        return super.info() + "Breed: " + breed;
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println(color + " color " + name + " is barking");
+    }
+}
+
+public class Cat extends Animal {
+    public String breed;
+
+    public Cat(String name, int age, String color, String breed) {
+        super(name, age, color);
+        this.breed = breed;
+    }
+
+    @Override
+    public String info() {
+        return super.info() + "Breed: " + breed;
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println(color + " color " + name + " is meowing");
+    }
+}
+
+#Task-04
+Given the following classes, write the code for the Vehicle2010 class to print the following output when we run the Vehicle2010User class.
+
+public class Vehicle{
+  public int x;
+  public int y;
+  
+  public void moveUp(){
+    y = y+1;
+  }
+  public void moveDown(){
+    y = y-1;
+  }
+  public void moveLeft(){
+    x = x-1;
+  }
+  public void moveRight(){
+    x = x+1;
+  }
+  public String toString(){
+    return "("+ x + ","+ y + ")";
+  }
+}
+ 
+//Tester Class
+public class Vehicle2010User{
+  public static void main(String[] args){
+    Vehicle2010 car1 = new Vehicle2010();
+    System.out.println(car1);
+    car1.moveLowerLeft();
+    System.out.println(car1);
+    
+    Vehicle2010 car2 = new Vehicle2010();
+    System.out.println(car2);
+    car2.moveUpperRight();
+    System.out.println(car2);
+    car2.moveLowerRight();
+    System.out.println(car2);
+  }
+}
+
+public class Vehicle2010 extends Vehicle {
+
+    public void moveUpperRight() {
+        moveUp();
+        moveRight();
+    }
+
+    public void moveLowerRight() {
+        moveDown();
+        moveRight();
+    }
+
+    public void moveUpperLeft() {
+        moveUp();
+        moveLeft();
+    }
+
+    public void moveLowerLeft() {
+        moveDown();
+        moveLeft();
+    }
+}
+
+#Task-05
+Design the ComplexNumber class with the necessary property to produce the output from the given driver code. 
+public class RealNumber {
+    public double realValue;
+    public RealNumber() {
+        this(0.0);
+    }
+    public RealNumber(double realValue) {
+        this.realValue = realValue;
+    }
+    public String toString(){
+        return "RealPart: " + realValue;
+    }
+   
+}
+public class ComplexNumberTester {
+    public static void main(String[] args) {
+        ComplexNumber cn1 = new ComplexNumber();
+        System.out.println(cn1);
+        System.out.println("----------------");
+        ComplexNumber cn2 = new ComplexNumber(5.0, 7.0);
+        System.out.println(cn2);
+    }
+}
+
+public class ComplexNumber extends RealNumber {
+    public double imaginaryValue;
+
+    public ComplexNumber() {
+        super(1.0);           // default real part = 1.0
+        this.imaginaryValue = 1.0; // default imaginary part = 1.0
+    }
+
+    public ComplexNumber(double realValue, double imaginaryValue) {
+        super(realValue);
+        this.imaginaryValue = imaginaryValue;
+    }
+
+    @Override
+    public String toString() {
+        return "RealPart: " + realValue + "\nImaginaryPart: " + imaginaryValue;
+    }
+}
+
+
+
+
+
+
