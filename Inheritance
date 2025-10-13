@@ -1,1 +1,80 @@
+#Task-01
+Complete the class Circle so that the desired outputs are generated properly.
+public class shapeTester {
+  public static void main(String[] args) {
+    Shape s = new Shape();
+    s.name = "Mobius Strip";
+    s.color = "Blue";
+    s.displayInfo();
+    System.out.println("1=======================");
+    Circle c = new Circle();
+    System.out.println("2=======================");
+    c.name = "Circle";
+    c.color = "Red";
+    c.radius = 5;
+    c.displayInfo();
+    System.out.println("3=======================");
+    c.area();
+  }
+}
+
+public class Shape {
+  public String name;
+  public String color;
+
+  public void displayInfo() {
+    System.out.printf("Name: %s\nColor: %s\n", name, color);
+  }
+}
+
+public class Circle extends Shape {
+    public double radius;
+
+    public void area() {
+        double area = Math.PI * radius * radius;
+        System.out.printf("Area of %s %s: %.2f\n", color, name, area);
+    }
+}
+
+#Task-02
+Given the following classes, write the code for the Vehicle2010 class to print the following output when we run the Vehicle2010User class.
+public class Vehicle2010User{
+  public static void main(String[] args){
+    Vehicle2010 car1 = new Vehicle2010();
+    System.out.println(car1);
+    car1.moveLowerLeft();
+    System.out.println(car1);
+    Vehicle2010 car2 = new Vehicle2010();
+    System.out.println(car2);
+    car2.moveUpperRight();
+    System.out.println(car2);
+    car2.moveLowerRight();
+    System.out.println(car2);
+  }
+}
+
+public class Vehicle{
+  public int x;
+  public int y;
+
+  public void moveUp(){
+    y = y+1;
+  }
+  public void moveDown(){
+    y = y-1;
+  }
+  public void moveLeft(){
+    x = x-1;
+  }
+  public void moveRight(){
+    x = x+1;
+  }
+  public String toString(){
+    return "("+ x + ","+ y + ")";
+  }
+}
+
+
+
+
 
