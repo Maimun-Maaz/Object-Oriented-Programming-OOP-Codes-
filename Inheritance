@@ -74,6 +74,549 @@ public class Vehicle{
   }
 }
 
+class Vehicle2010 extends Vehicle {
+    
+    public void moveLowerLeft() {
+        // Moves down (y-1) and left (x-1)
+        moveDown();
+        moveLeft();
+    }
+
+    public void moveUpperRight() {
+        // Moves up (y+1) and right (x+1)
+        moveUp();
+        moveRight();
+    }
+
+    public void moveLowerRight() {
+        // Moves down (y-1) and right (x+1)
+        moveDown();
+        moveRight();
+    }
+}
+
+#Task-03
+Given the following classes, write the code for the BBAStudent class so that the following output is printed when we run the TestStudent class.
+public class Student{
+  private String name = "Just a Student"; 
+  private String department = "nothing";
+  
+  public void setDepartment(String dpt){
+    this.department = dpt;
+  }
+  public void setName(String name){
+    this.name = name;
+  }
+  public void details(){
+    System.out.println("Name : " + name + " Department: " + department);
+  }
+}
+//Tester Class
+public class TestStudent{
+  public static void main(String [] args){
+    BBAStudent b1 = new BBAStudent();
+    BBAStudent b2 = new BBAStudent("Humty Dumty");
+    BBAStudent b3 = new BBAStudent("Little Bo Peep"); 
+    b1.details();
+    System.out.println("1---------------");
+    b2.details();
+    System.out.println("2---------------");
+    b3.details();
+  }
+}
+
+public class BBAStudent extends Student {
+
+    // Default constructor
+    public BBAStudent() {
+        super.setName("Default");
+        super.setDepartment("BBA");
+    }
+
+    // Constructor with name
+    public BBAStudent(String name) {
+        super.setName(name);
+        super.setDepartment("BBA");
+    }
+}
+
+#Task-04
+Design the Dog and Cat class derived from the Animal class with appropriate attributes and properties so that the driver code can generate the output given below.
+public class Animal {
+    public String name;
+    public int age;
+    public String color;
+    public Animal(String name, int age, String color) {
+        this.name = name;
+        this.age = age;
+        this.color = color;
+    }
+    public void makeSound() {
+        System.out.println("Animal makes a sound");
+    }
+    public String info() {
+        return "Name: "+name+"\nAge: "+age+"\nColor: "+color+"\n";
+    }
+}
+
+public class AnimalTester2 {
+    public static void main(String[] args) {
+      Dog dog = new Dog("Buddy", 5, "Brown", "Bulldog");
+      Cat cat = new Cat("Kitty", 3, "White", "Persian");
+      System.out.println("1.========");
+      System.out.println(dog.info());
+      System.out.println("2.========");
+      System.out.println(cat.info());
+      System.out.println("3.========");
+      dog.makeSound();
+      System.out.println("4.========");
+      cat.makeSound();
+    }
+}
+
+// Dog class
+public class Dog extends Animal {
+    private String breed;
+
+    public Dog(String name, int age, String color, String breed) {
+        super(name, age, color);
+        this.breed = breed;
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println(color + " color " + name + " is barking");
+    }
+
+    @Override
+    public String info() {
+        return super.info() + "Breed: " + breed;
+    }
+}
+
+// Cat class
+public class Cat extends Animal {
+    private String breed;
+
+    public Cat(String name, int age, String color, String breed) {
+        super(name, age, color);
+        this.breed = breed;
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println(color + " color " + name + " is meowing");
+    }
+
+    @Override
+    public String info() {
+        return super.info() + "Breed: " + breed;
+    }
+}
+
+#Task-05
+Given the following classes, write the code for the Cricket_Tournament and the Tennis_Tournment classes derived from Tournament so that the following output is generated.
+public class TournamentTester {
+  public static void main(String[] args) {
+    Cricket_Tournament ct1 = new Cricket_Tournament();
+    System.out.println(ct1);
+    System.out.println("-----------------------");
+    
+    Cricket_Tournament ct2 = new Cricket_Tournament("IPL", 10, "t20");
+    System.out.println(ct2);
+    System.out.println("-----------------------");
+    
+    Tennis_Tournament tt = new Tennis_Tournament("Roland Garros", 128);
+    System.out.println(tt);
+  }
+}
+
+public class Tournament {
+  private String name;
+  public Tournament() {
+    this.name = "Default";
+  }
+  public Tournament(String name) {
+    this.name = name;
+  }
+  public String getName(){
+    return this.name;
+  }
+  @Override
+  public String toString(){
+    return "Tournament Name: "+name;
+  }
+}
+
+// Cricket_Tournament class
+public class Cricket_Tournament extends Tournament {
+    private int numTeams;
+    private String type;
+
+    public Cricket_Tournament() {
+        super(); // calls Tournament() => Default name
+        this.numTeams = 0;
+        this.type = "No type";
+    }
+
+    public Cricket_Tournament(String name, int numTeams, String type) {
+        super(name);
+        this.numTeams = numTeams;
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Cricket Tournament Name: " + getName() +
+               "\nNumber of Teams: " + numTeams +
+               "\nType: " + type;
+    }
+}
+
+// Tennis_Tournament class
+public class Tennis_Tournament extends Tournament {
+    private int numPlayers;
+
+    public Tennis_Tournament(String name, int numPlayers) {
+        super(name);
+        this.numPlayers = numPlayers;
+    }
+
+    @Override
+    public String toString() {
+        return "Tennis Tournament Name: " + getName() +
+               "\nNumber of Players: " + numPlayers;
+    }
+}
+
+#Task-06
+Complete the class Dog so that the desired outputs are generated properly.
+public class AnimalTester{
+  public static void main(String args[]){
+    Animal a1 = new Animal();
+    System.out.println("1-------------");
+    a1.details();
+    System.out.println("2-------------");
+    Dog d1  = new Dog();
+    d1.name = "Pammy";
+    System.out.println("3-------------");
+    System.out.println("Name: " + d1.getName());
+    d1.details();
+    System.out.println("4-------------");
+    d1.updateSound("Bark");
+    System.out.println("5-------------");
+    d1.details();
+  }
+}
+
+public class Animal{ 
+  public int legs = 4;
+  public String sound = "Not defined";
+  
+  public void details(){
+    System.out.println("Legs: "+legs);
+    System.out.println("Sound: "+sound);
+  }
+}
+
+public class Dog extends Animal{
+   
+    public String name;
+
+    // Default constructor
+    public Dog() {
+        System.out.println("The dog says hello!");
+    }
+
+    // Getter for name
+    public String getName() {
+        return name;
+    }
+
+    // Method to update the sound
+    public void updateSound(String newSound) {
+        this.sound = newSound;
+    }
+}
+
+public class CheckingAccount extends Account {
+    public static int count = 0;
+
+    // Default constructor
+    public CheckingAccount() {
+        super(0.0); // Call Account constructor with 0 balance
+        count++;
+    }
+
+    // Constructor with initial balance
+    public CheckingAccount(double balance) {
+        super(balance); // Call Account constructor with given balance
+        count++;
+    }
+}
+
+#Task-07
+Design the CheckingAccount class derived from the Account class with appropriate attributes and properties so that the driver code can generate the output given below.                                                                                                                                                       public class Account{
+  public double balance = 0.0;
+  
+  public Account(double balance){
+    this.balance = balance;
+  }
+  public double showBalance(){
+    return balance;
+  }
+}
+ 
+//Tester Class
+public class TestAccount{
+  public static void main(String [] args){
+    System.out.println("Total Checking Accounts: "+CheckingAccount.count);
+    CheckingAccount c1 = new CheckingAccount();
+    System.out.println("Account Balance: " + c1.showBalance());
+    CheckingAccount c2 = new CheckingAccount(100.0);
+    System.out.println("Account Balance: " + c2.showBalance());
+    CheckingAccount c3 = new CheckingAccount(200.0);
+    System.out.println("Account Balance: " + c3.showBalance());
+    System.out.println("Total Checking Accounts: "+CheckingAccount.count);
+  }
+}
+
+
+public class CheckingAccount extends Account {
+    public static int count = 0;
+
+    // Default constructor
+    public CheckingAccount() {
+        super(0.0);
+        count++;
+    }
+
+    // Constructor with initial balance
+    public CheckingAccount(double balance) {
+        super(balance);
+        count++;
+    }
+}
+
+#Task-08
+Given the following classes, write the code for the Book and the CD class so that the following output is printed.
+public class Tester6 {
+  public static void main(String[] args) {
+    Book book = new Book(1, "The Alchemist", 500, "97806", "HarperCollins");
+    System.out.println(book.printDetail());
+    System.out.println("-----------------------");
+    
+    CD cd = new CD(2, "Shotto", 300, "Warfaze", 50, "Hard Rock");
+    System.out.println(cd.printDetail());
+  }
+}
+
+class Product {
+  private int id;
+  private String title;
+  private int price;
+  
+  public Product(int id, String title, int price) {
+    this.id = id;
+    this.title = title;
+    this.price = price;
+  }
+  
+  public String getIdTitlePrice() {
+    return "ID: " + id + " Title: " + title + " Price: " + price;
+  }
+}
+
+// Book class
+class Book extends Product {
+    private String isbn;
+    private String publisher;
+
+    public Book(int id, String title, int price, String isbn, String publisher) {
+        super(id, title, price);
+        this.isbn = isbn;
+        this.publisher = publisher;
+    }
+
+    public String printDetail() {
+        return super.getIdTitlePrice() + " ISBN: " + isbn + " Publisher: " + publisher;
+    }
+}
+
+// CD class
+class CD extends Product {
+    private String band;
+    private int duration; // in minutes
+    private String genre;
+
+    public CD(int id, String title, int price, String band, int duration, String genre) {
+        super(id, title, price);
+        this.band = band;
+        this.duration = duration;
+        this.genre = genre;
+    }
+
+    public String printDetail() {
+        return super.getIdTitlePrice() + "\nBand: " + band + " Duration: " + duration + " minutes Genre: " + genre;
+    }
+}
+
+#Task-09
+
+Given the following classes, write the code for the CSEStudent class derived from Student so that the following output is generated.
+public class StudentTester{
+  public static void main (String args[]){
+    CSEStudent.details();
+    System.out.println("1--------------");
+    CSEStudent s1 =  new CSEStudent("Bob", 23);
+    s1.info();
+    System.out.println("2--------------");
+    CSEStudent s2 =  new CSEStudent("Don", 33);
+    s2.info();
+    System.out.println("3--------------");
+    s1.addLabBasedCourse("CSE220");
+    s1.addLabBasedCourse("CSE221");
+    System.out.println("4--------------");
+    s1.info();
+    System.out.println("5--------------");
+    CSEStudent.details();
+    System.out.println("6--------------");
+    s1.addLabBasedCourse("CSE230");
+    System.out.println("7--------------");
+    s1.info();
+    System.out.println("8--------------");
+    s2.addLabBasedCourse("CSE110");
+    s2.info();
+  }
+}
+
+class Student{
+  public String name;
+  public int id;
+  public String courses = "";
+  
+  public Student(String n, int i){
+    name = n;
+    id = i;
+  }
+  
+  public void info(){
+    System.out.println("Name: "+name);
+    System.out.println("ID: "+id);
+    System.out.println("Courses: "+courses);
+  }
+} 
+
+class CSEStudent extends Student {
+    private static int totalStudents = 0;
+    private static String[] labCourses = {"CSE110", "CSE111", "CSE220", "CSE221"};
+
+    public CSEStudent(String n, int i) {
+        super(n, i);
+        totalStudents++;
+    }
+
+    public void addLabBasedCourse(String course) {
+        boolean isLabCourse = false;
+        for (String lab : labCourses) {
+            if (lab.equals(course)) {
+                isLabCourse = true;
+                break;
+            }
+        }
+
+        if (isLabCourse) {
+            if (!courses.contains(course)) {
+                if (!courses.equals("")) {
+                    courses += " ";
+                }
+                courses += course;
+            }
+        } else {
+            System.out.println("It is not a lab based course!");
+        }
+    }
+
+    public static void details() {
+        System.out.println("Total CSE Students: " + totalStudents);
+        System.out.print("Available Lab Based Courses: \n");
+        for (String lab : labCourses) {
+            System.out.print(lab + " ");
+        }
+        System.out.println();
+    }
+}
+  
+#Task-10
+Design the ComplexNumber class with the necessary property to produce the output from the given driver code. 
+
+Driver Code and Parent Class                                                                                                           
+
+public class RealNumber {
+    public double realValue;
+    public RealNumber() {
+        this(0.0);
+    }
+    public RealNumber(double realValue) {
+        this.realValue = realValue;
+    }
+    public String toString(){
+        return "RealPart: " + realValue;
+    }
+}
+
+public class ComplexNumberTester {
+    public static void main(String[] args) {
+        ComplexNumber cn1 = new ComplexNumber();
+        System.out.println(cn1);
+        System.out.println("----------------");
+        ComplexNumber cn2 = new ComplexNumber(5.0, 7.0);
+        System.out.println(cn2);
+    }
+}                                                                                                                                                         Output : 
+
+public class ComplexNumber extends RealNumber {
+    public double imaginaryValue;
+
+    // Default constructor
+    public ComplexNumber() {
+        super(1.0); // Real part = 1.0
+        this.imaginaryValue = 1.0; // Imaginary part = 1.0
+    }
+
+    // Parameterized constructor
+    public ComplexNumber(double real, double imaginary) {
+        super(real);
+        this.imaginaryValue = imaginary;
+    }
+
+    @Override
+    public String toString() {
+        return "RealPart: " + realValue + "\nImaginaryPart: " + imaginaryValue;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
 
 
 
