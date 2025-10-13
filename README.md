@@ -24,7 +24,7 @@ I created this to **learn, practice, and showcase** my understanding of OOP in J
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/Maimun-Maaz/OOP-Basics.git
+   git clone https://github.com/Maimun-Maaz/Object-Oriented-Programming-OOP-Codes-
    ```
 2. Open the folder in **VS Code** or any IDE (like IntelliJ / Eclipse / Android Studio).
 3. Compile and run the `Main.java` files inside each concept’s folder.
