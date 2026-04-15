@@ -182,3 +182,586 @@ public class CinemexTicket extends MovieTicket {
                "Status: " + status;
     }
 }
+
+#Task-2
+
+Write the Mango and the Jackfruit classes derived from Fruit class so that the following code generates the output below:
+
+Parent Class 
+public class Fruit{
+  private boolean formalin = false;
+  private String name = "";
+  public Fruit(boolean formalin, String name){
+    this.formalin = formalin;
+    this.name = name; 
+  }   
+  public String getName(){
+    return name;
+  }
+  public boolean hasFormalin(){
+    return formalin;
+  }
+}
+Driver Code
+Output
+public class FruitTester{ 
+  public static void testFruit(Fruit f){
+    System.out.println("----Printing Detail-----");
+    if(f.hasFormalin()){   
+      System.out.println("Do not eat the "+f.getName()+".");
+      System.out.println(f);
+    }else{
+      System.out.println("Eat the "+f.getName()+".");
+      System.out.println(f);
+    }
+  } 
+  public static void main(String [] args){
+    Mango m = new Mango();
+    testFruit(m);
+    Jackfruit j = new Jackfruit();
+    testFruit(j);
+  }
+}
+----Printing Detail-----
+Do not eat the Mango.
+Mangos are bad for you
+----Printing Detail-----
+Eat the Jackfruit.
+Jackfruits are good for you
+
+// Mango class derived from Fruit
+class Mango extends Fruit {
+    
+    public Mango() {
+        // According to the output, Mango has formalin (true)
+        super(true, "Mango");
+    }
+
+    @Override
+    public String toString() {
+        return "Mangos are bad for you";
+    }
+}
+
+// Jackfruit class derived from Fruit
+class Jackfruit extends Fruit {
+    
+    public Jackfruit() {
+        // According to the output, Jackfruit does not have formalin (false)
+        super(false, "Jackfruit");
+    }
+
+    @Override
+    public String toString() {
+        return "Jackfruits are good for you";
+    }
+}
+
+#Task-3
+
+
+Design the Manager and Developer class derived from the Employee class with appropriate attributes and properties so that the driver code can generate the output given below. [Hint:
+Manager:
+Adds a bonus to the base salary if the manager works more than 40 hours.
+If the manager works more than 100 hours, the full amount is approved; if they work more than 80 hours, half the amount is approved. Otherwise, the increment is denied.
+Developer:
+Adds $700 to the base salary if the developer works with Java programming language.]
+
+Driver Code and Parent Class 
+Output
+public class Employee {
+    public String name;
+    private double baseSalary;
+    private int hoursWorked;
+
+    public Employee(String name, double baseSalary, int hoursWorked){
+        this.name = name;
+        this.baseSalary = baseSalary;
+        this.hoursWorked = hoursWorked;
+    }
+    public double getBaseSalary() {
+        return baseSalary;
+    }
+    public void setBaseSalary(double baseSalary) {
+        this.baseSalary = baseSalary;
+    }
+    public int getHoursWorked() {
+        return hoursWorked;
+    }
+    public void setHoursWorked(int hoursWorked) {
+        this.hoursWorked = hoursWorked;
+    }
+    public void displayInfo() {
+        System.out.println("Name: " + name);
+        System.out.println("Base Salary: $" + baseSalary);
+        System.out.println("Work Hours: " + hoursWorked);
+    }
+}
+public class EmployeeTester {
+ public static void main(String[] args) {
+  Manager neymar = new Manager("Neymar",1000, 45, 10);
+  Developer messi = new Developer("Messi", 1000, 50, "Java");
+  Developer chiesa = new Developer("Chiesa", 1000, 50, "Javascript");
+  neymar.calculateSalary();
+  System.out.println("1.==========");
+  neymar.displayInfo();
+  System.out.println("2.==========");
+  neymar.requestIncrement(100);
+  System.out.println("3.==========");
+  neymar.setHoursWorked(85);
+  neymar.requestIncrement(100);
+  System.out.println("4.==========");
+  neymar.calculateSalary();
+  System.out.println("5.==========");
+  neymar.displayInfo();
+  System.out.println("6.==========");
+  messi.calculateSalary();
+  System.out.println("7.==========");
+  messi.displayInfo();
+  System.out.println("8.==========");
+  chiesa.calculateSalary();
+  System.out.println("9.==========");
+  chiesa.displayInfo();
+ }
+}
+1.==========
+Name: Neymar
+Base Salary: $1000.0
+Work Hours: 45
+Bonus: 10.0 %
+Final Salary: $1100.0
+2.==========
+Increment denied.
+3.==========
+$50 Increment approved.
+4.==========
+5.==========
+Name: Neymar
+Base Salary: $1050.0
+Work Hours: 85
+Bonus: 10.0 %
+Final Salary: $1155.0
+6.==========
+7.==========
+Name: Messi
+Base Salary: $1000.0
+Work Hours: 50
+Language: Java
+Final Salary: $1700.0
+8.==========
+9.==========
+Name: Chiesa
+Base Salary: $1000.0
+Work Hours: 50
+Language: Javascript
+Final Salary: $1000.0
+
+// Manager Class
+class Manager extends Employee {
+    private double bonusPercentage;
+    private double finalSalary;
+
+    public Manager(String name, double baseSalary, int hoursWorked, double bonusPercentage) {
+        super(name, baseSalary, hoursWorked);
+        this.bonusPercentage = bonusPercentage;
+        this.finalSalary = baseSalary; // Initialize with base
+    }
+
+    public void calculateSalary() {
+        if (getHoursWorked() > 40) {
+            this.finalSalary = getBaseSalary() + (getBaseSalary() * bonusPercentage / 100.0);
+        } else {
+            this.finalSalary = getBaseSalary();
+        }
+    }
+
+    public void requestIncrement(double amount) {
+        int hours = getHoursWorked();
+        if (hours > 100) {
+            setBaseSalary(getBaseSalary() + amount);
+            System.out.println("$" + (int)amount + " Increment approved.");
+        } else if (hours > 80) {
+            setBaseSalary(getBaseSalary() + (amount / 2.0));
+            System.out.println("$" + (int)(amount / 2.0) + " Increment approved.");
+        } else {
+            System.out.println("Increment denied.");
+        }
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Bonus: " + bonusPercentage + " %");
+        System.out.println("Final Salary: $" + finalSalary);
+    }
+}
+
+// Developer Class
+class Developer extends Employee {
+    private String language;
+    private double finalSalary;
+
+    public Developer(String name, double baseSalary, int hoursWorked, String language) {
+        super(name, baseSalary, hoursWorked);
+        this.language = language;
+        this.finalSalary = baseSalary;
+    }
+
+    public void calculateSalary() {
+        if (language.equalsIgnoreCase("Java")) {
+            this.finalSalary = getBaseSalary() + 700;
+        } else {
+            this.finalSalary = getBaseSalary();
+        }
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Language: " + language);
+        System.out.println("Final Salary: $" + finalSalary);
+    }
+}
+
+#Task-4
+
+Design the KKTea (parent) and KKFlavouredTea (child) classes so that the following output is produced. The KKFlavouredTea class should inherit KKTea and KKTea should inherit the Tea class. Note that: 
+An object of either class represents a single box of teabags. 
+Each tea bag weighs 2 grams. 
+The status of an object refers to whether it is sold or not
+Driver Code and Parent Class 
+Output
+public class Tea {
+  public String name;
+  protected int price;
+  protected boolean status;
+
+  public Tea(String name, int price) {
+    this.name = name;
+    this.price = price;
+    this.status = false;
+  }
+
+  public void productDetail() {
+    System.out.println("Name: " + name + ", Price: " + price);
+    System.out.println("Status: " + status);
+  }
+}
+//Driver Code
+public class TeaTester{
+ public static void main(String[] args) {
+   KKTea t1 = new KKTea(250, 50);
+   System.out.println("--------1---------");
+   t1.productDetail();
+   System.out.println("--------2---------");
+   KKTea.totalSales();
+   System.out.println("--------3---------");
+   KKTea t2 = new KKTea(470, 100);
+   KKTea t3 = new KKTea(360, 75);
+   KKTea.updateSoldStatusRegular(t1);
+   KKTea.updateSoldStatusRegular(t2);
+   System.out.println("--------4---------");
+   t2.productDetail();
+   System.out.println("--------5---------");
+   KKTea.totalSales();
+   System.out.println("--------6---------");
+   KKFlavouredTea t4 = new KKFlavouredTea("Jasmine", 260, 50);
+   KKFlavouredTea t5 = new KKFlavouredTea("Honey Lemon", 270, 45);
+   KKFlavouredTea t6 = new KKFlavouredTea("Honey Lemon", 270, 45);
+   System.out.println("--------7---------");
+   t4.productDetail();
+   System.out.println("--------8---------");
+   t6.productDetail();
+   System.out.println("--------9---------");
+   KKFlavouredTea.updateSoldStatusFlavoured(t4);
+   KKFlavouredTea.updateSoldStatusFlavoured(t5);
+   KKFlavouredTea.updateSoldStatusFlavoured(t6);
+   System.out.println("--------10---------");
+   KKTea.totalSales();
+ }
+}
+--------1---------
+Name: KK Regular Tea, Price: 250
+Status: false
+Weight: 100, Tea Bags: 50
+--------2---------
+Total Sales: 0
+KK Regular Tea: 0
+--------3---------
+--------4---------
+Name: KK Regular Tea, Price: 470
+Status: true
+Weight: 200, Tea Bags: 100
+--------5---------
+Total Sales: 2
+KK Regular Tea: 2
+--------6---------
+--------7---------
+Name: KK Jasmine Tea, Price: 260
+Status: false
+Weight: 100, Tea Bags: 50
+--------8---------
+Name: KK Honey Lemon Tea, Price: 270
+Status: false
+Weight: 90, Tea Bags: 45
+--------9---------
+--------10---------
+Total Sales: 5
+KK Regular Tea: 2
+KK Flavoured Tea: 3
+
+// KKTea class inheriting from Tea
+class KKTea extends Tea {
+    public int numBags;
+    public int weight;
+    public static int totalRegularSold = 0;
+    public static int totalFlavouredSold = 0;
+
+    public KKTea(int price, int numBags) {
+        super("KK Regular Tea", price);
+        this.numBags = numBags;
+        this.weight = numBags * 2; // Each bag is 2 grams
+    }
+
+    // Overloaded constructor for the child class to set custom names
+    public KKTea(String name, int price, int numBags) {
+        super(name, price);
+        this.numBags = numBags;
+        this.weight = numBags * 2;
+    }
+
+    public static void totalSales() {
+        System.out.println("Total Sales: " + (totalRegularSold + totalFlavouredSold));
+        System.out.println("KK Regular Tea: " + totalRegularSold);
+        // Only print Flavoured count if we are in the total sales context
+        if (totalFlavouredSold > 0 || (totalRegularSold + totalFlavouredSold) > 0) {
+             System.out.println("KK Flavoured Tea: " + totalFlavouredSold);
+        }
+    }
+
+    public static void updateSoldStatusRegular(KKTea t) {
+        t.status = true;
+        totalRegularSold++;
+    }
+
+    @Override
+    public void productDetail() {
+        super.productDetail();
+        System.out.println("Weight: " + weight + ", Tea Bags: " + numBags);
+    }
+}
+
+// KKFlavouredTea class inheriting from KKTea
+class KKFlavouredTea extends KKTea {
+    
+    public KKFlavouredTea(String flavour, int price, int numBags) {
+        // Formats name as "KK [Flavour] Tea"
+        super("KK " + flavour + " Tea", price, numBags);
+    }
+
+    public static void updateSoldStatusFlavoured(KKFlavouredTea t) {
+        t.status = true;
+        totalFlavouredSold++;
+    }
+}
+
+# Task-5 
+
+Write the CSEStudent and CSE111Student classes derived from Student class so that the following code generates the output below:
+Parent Class 
+public class Student{
+  public String msg = "I love BU";
+  public String shout(){
+    return msg;
+  }
+}
+Driver Code
+Output
+public class StudentTester{
+  public static void printShout(Student s){
+    System.out.println("------------------");
+    System.out.println(s.msg);
+    System.out.println(s.shout());
+  }
+  public static void main(String [] args){
+    Student s = new Student();
+    CSEStudent cs = new CSEStudent();
+    CSE111Student cs111 = new CSE111Student();
+    System.out.println(s.msg);
+    System.out.println(cs.msg);
+    System.out.println(cs111.msg);
+    printShout(s);
+    printShout(cs);
+    printShout(cs111);
+  }
+}
+I love BU
+I want to transfer to CSE
+I love Java Programming
+------------------
+I love BU
+I love BU
+------------------
+I love BU
+I want to transfer to CSE
+------------------
+I love BU
+I love Java Programming
+
+// CSEStudent class inheriting from Student
+class CSEStudent extends Student {
+    public CSEStudent() {
+        // We update the msg variable for this instance
+        this.msg = "I want to transfer to CSE";
+    }
+
+    @Override
+    public String shout() {
+        // shout() returns the updated message
+        return this.msg;
+    }
+}
+
+// CSE111Student class inheriting from Student
+class CSE111Student extends Student {
+    public CSE111Student() {
+        // We update the msg variable for this instance
+        this.msg = "I love Java Programming";
+    }
+
+    @Override
+    public String shout() {
+        // shout() returns the updated message
+        return this.msg;
+    }
+}
+
+# Task-6
+
+Write the PlatinumCard and SignatureCard classes derived from CreditCard class so that the following code generates the output below.
+
+Note: Platinum card users initially have 100 reward points and will get 2 reward points for spending 100 taka each. Signature card users initially have 200 reward points and will get 4 reward points for spending 100 taka each. Signature card users are allowed to bring upto 5 companions at lounges.
+
+Parent Class 
+public class CreditCard {
+   public String cardHolder;
+   public String accountNo;
+   public int rewardPoints;
+   public CreditCard(String cardHolder, String accountNo, int rewardPoints){
+       this.cardHolder = cardHolder;
+       this.accountNo = accountNo;
+       this.rewardPoints = rewardPoints;
+   }
+
+   public void cardDetails(){
+       System.out.println("Card Holder Name: " + cardHolder);
+       System.out.println("Account Number: " + accountNo);
+       System.out.println("Reward point gained: " + rewardPoints);
+   }
+}
+Driver Code
+Output
+public class CardTester {
+  public static void main(String[] args) {
+    CreditCard card1 = new PlatinumCard("Ali", "345 127");
+    CreditCard card2 = new SignatureCard("Rahul", "514 123");
+    CreditCard card3 = new SignatureCard("Rohan", "147 965");
+    CreditCard [] cards = {card1, card2, card3};
+    for (int i = 0; i<cards.length; i++)
+    {
+      System.out.println("================");
+      if (cards[i] instanceof SignatureCard)
+      {
+        SignatureCard new_card = (SignatureCard) cards[i];
+        new_card.spendCash(500);
+      }
+      else if (cards[i] instanceof PlatinumCard)
+      {
+        PlatinumCard new_card = (PlatinumCard) cards[i];
+        new_card.spendCash(200);
+      }
+      System.out.println("================");
+      cards[i].cardDetails();
+    }
+  }
+}
+================
+Previous Reward Points: 100
+Reward points after spending 200 taka: 104
+================
+Card Holder Name: Ali
+Account Number: 345 127
+Reward point gained: 104
+================
+Previous Reward Points: 200
+Reward points after spending 500 taka: 220
+================
+Card Holder Name: Rahul
+Account Number: 514 123
+Reward point gained: 220
+Possible Number of Companions for Lounge: 5
+================
+Previous Reward Points: 200
+Reward points after spending 500 taka: 220
+================
+Card Holder Name: Rohan
+Account Number: 147 965
+Reward point gained: 220
+Possible Number of Companions for Lounge: 5
+
+// PlatinumCard class inheriting from CreditCard
+class PlatinumCard extends CreditCard {
+    
+    public PlatinumCard(String cardHolder, String accountNo) {
+        // Platinum card starts with 100 reward points
+        super(cardHolder, accountNo, 100);
+    }
+
+    public void spendCash(int amount) {
+        System.out.println("Previous Reward Points: " + rewardPoints);
+        // Calculation: 2 points for every 100 taka spent
+        int pointsGained = (amount / 100) * 2;
+        rewardPoints += pointsGained;
+        System.out.println("Reward points after spending " + amount + " taka: " + rewardPoints);
+    }
+}
+
+// SignatureCard class inheriting from CreditCard
+class SignatureCard extends CreditCard {
+    private int companions = 5;
+
+    public SignatureCard(String cardHolder, String accountNo) {
+        // Signature card starts with 200 reward points
+        super(cardHolder, accountNo, 200);
+    }
+
+    public void spendCash(int amount) {
+        System.out.println("Previous Reward Points: " + rewardPoints);
+        // Calculation: 4 points for every 100 taka spent
+        int pointsGained = (amount / 100) * 4;
+        rewardPoints += pointsGained;
+        System.out.println("Reward points after spending " + amount + " taka: " + rewardPoints);
+    }
+
+    @Override
+    public void cardDetails() {
+        // Call parent method first to print name, account, and points
+        super.cardDetails();
+        System.out.println("Possible Number of Companions for Lounge: " + companions);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
